@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> {
+public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyViewHolder> {
     private List<Dish> lst = new ArrayList<>();
     private IClickListener mClickListener;
     public interface  IClickListener {
@@ -28,7 +28,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         void onClickDetails (Dish dish);
         void onClickAddItem(Dish dish);
     }
-    public DishAdapter(List<Dish> lst,IClickListener listener,Context context) {
+    public DishInDayAdapter(List<Dish> lst, IClickListener listener, Context context) {
         this.lst = lst;
         this.mClickListener = listener;
         this.context = context;
@@ -41,7 +41,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Nạp layout cho View biểu diễn phần tử dish
-        View dishView = (CardView) inflater.inflate(R.layout.activity_dishes_item_view, parent, false);
+        View dishView = (CardView) inflater.inflate(R.layout.item_dish_in_day, parent, false);
         return new MyViewHolder(dishView);
     }
 
@@ -53,18 +53,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         holder.textView.setText(di.getName());
         holder.textCalories.setText(di.getCaloriesPer100Gm()+" calores/100g");
 //        holder.textGam.setText(di.parseCalories(di.getWeight())+" g");
-        holder.button_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickListener.onClickDeleteItem(di);
-            }
-        });
-
-        holder.itemView.setOnClickListener(view -> {
-            mClickListener.onClickDetails(lst.get(position));
-        });
-
-        holder.button_add_to_diary.setOnClickListener(v -> mClickListener.onClickAddItem(di));
     }
 
 
@@ -88,20 +76,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
             textView = itemView.findViewById(R.id.item_text);
             textCalories = itemView.findViewById(R.id.item_calories);
 //            textGam = itemView.findViewById(R.id.item_g);
-            button_add_to_diary = itemView.findViewById(R.id.btn_add_dish_diary);
-            button_delete = itemView.findViewById(R.id.btn_delete_dish);
-            button_add_to_diary.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(button_add_to_diary.getTag() == null || button_add_to_diary.getTag().equals("add")){
-                        button_add_to_diary.setImageResource(R.drawable.baseline_check_24);
-                        button_add_to_diary.setTag("check");
-                    } else {
-                        button_add_to_diary.setImageResource(R.drawable.baseline_add_24);
-                        button_add_to_diary.setTag("add");
-                    }
-                }
-            });
         }
     }
 }

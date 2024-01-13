@@ -52,28 +52,5 @@
                 </TableRow>
             </TableLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_dish_diary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:rippleColor="@color/green"
-            app:backgroundTint="@color/white"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            app:fabCustomSize="40dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/baseline_add_24">
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
-        <ImageButton
-            android:id="@+id/btn_delete_dish"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:contentDescription="delete_exetr"
-            android:src="@drawable/delete_exercise">
-        </ImageButton>
-    </RelativeLayout>
+           </RelativeLayout>
 </androidx.cardview.widget.CardView>

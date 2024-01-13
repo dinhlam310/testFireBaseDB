@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.adapter.DishAdapter;
+import com.example.testfirebasedb.adapter.DishInDayAdapter;
 import com.example.testfirebasedb.adapter.ExerciseAdapter;
 import com.example.testfirebasedb.adapter.ExerciseInDayAdapter;
 import com.example.testfirebasedb.entity.Day;
@@ -46,7 +48,7 @@ public class DayActivity extends AppCompatActivity {
     private ExerciseInDayAdapter mExerciseAdapter;
     private List<Exercise> mListExercise;
     private List<Dish> mListDish;
-    private DishAdapter mDishAdapter;
+    private DishInDayAdapter mDishAdapter;
     String selectedDate;
 
     @Override
@@ -89,11 +91,19 @@ public class DayActivity extends AppCompatActivity {
         });
 //        getListExerciseFromDB();
 //        getListDishFromDB();
+        ImageView btn_add_dish = (ImageView) findViewById(R.id.diary_dish_add_button);
+        btn_add_dish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DayActivity.this, DishActivity.class);
+                startActivity(i);
+            }
+        });
+
         initUiDish();
         initUiExercise();
         loadDayData(selectedDate);
     }
-
     // Hàm lấy danh sách bài tập từ Firebase Realtime Database
 //    private void getListExerciseFromDB() {
 //        DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child("Exercise");
@@ -135,7 +145,6 @@ public class DayActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
     private void initUiExercise() {
         exercise = findViewById(R.id.recyclerViewExercise);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -169,7 +178,22 @@ public class DayActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dish.addItemDecoration(dividerItemDecoration);
         mListDish = new ArrayList<>();
-        mDishAdapter = new DishAdapter(mListDish, this);
+        mDishAdapter = new DishInDayAdapter(mListDish, new DishInDayAdapter.IClickListener() {
+            @Override
+            public void onClickDeleteItem(Dish dish) {
+
+            }
+
+            @Override
+            public void onClickDetails(Dish dish) {
+
+            }
+
+            @Override
+            public void onClickAddItem(Dish dish) {
+
+            }
+        }, this);
         dish.setAdapter(mDishAdapter);
     }
 
