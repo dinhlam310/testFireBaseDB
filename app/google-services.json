@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "523938227498",
+    "firebase_url": "https://calories-database-final-default-rtdb.firebaseio.com",
+    "project_id": "calories-database-final",
+    "storage_bucket": "calories-database-final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523938227498:android:aa40ebdaf36c0d8553ea53",
+        "android_client_info": {
+          "package_name": "com.example.testfirebasedb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTNfgp1AxbIW6U7_G8ryxQyDXn15qYlxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

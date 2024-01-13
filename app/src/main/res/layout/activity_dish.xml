@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background_style"
+    tools:context=".activity.DishActivity">
+    <RelativeLayout
+        style="@style/header_style">
+        <TextView
+            style="@style/header_text"
+            android:text = "@string/dishes">
+        </TextView>
+        <Button
+            style="@style/header_button"
+            android:id="@+id/from_dishes_to_menu"
+            android:text="@string/to_menu">
+        </Button>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/my_db_menu_color"
+        android:id="@+id/db_dish_menu">
+
+        <ImageButton
+            android:id="@+id/db_dish_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:contentDescription="@string/create"
+            android:onClick="onCreateDish"
+            android:scaleType="centerInside"
+            android:src="@drawable/add_item" />
+
+        <ImageButton
+            android:id="@+id/db_dish_delete"
+            android:layout_width="57dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:contentDescription="@string/delete"
+            android:onClick="onDeleteDish"
+            android:scaleType="centerInside"
+            android:src="@drawable/delete_item" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/db_dish_delete"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/db_dish_edit"
+            android:onClick="onEditDish"
+            android:src="@drawable/edit"
+            android:contentDescription="@string/edit" />
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layoutAnimation="@anim/layout_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycle_dishes_view"/>
+</LinearLayout>
