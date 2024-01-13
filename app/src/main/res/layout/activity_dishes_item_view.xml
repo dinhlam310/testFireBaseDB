@@ -8,8 +8,6 @@
     app:cardElevation="2dp"
     android:id="@+id/cardview"
     >
-<<<<<<< HEAD
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +27,6 @@
             android:layout_margin="5dp"
             android:text="Day la item text"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-=======
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -98,5 +95,4 @@
             android:src="@drawable/delete_exercise">
         </ImageButton>
     </RelativeLayout>
->>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 </androidx.cardview.widget.CardView>
