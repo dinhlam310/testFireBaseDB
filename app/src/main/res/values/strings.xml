@@ -73,7 +73,11 @@
     <string name="add_exercise">Add exercise</string>
 
     <string name="eaten_dishes">Eaten dishes</string>
+<<<<<<< HEAD
+    <string name="exercises_per_day">Exercises per day</string>
+=======
     <string name="exercises_per_day">Exercises per day</string>git
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 
     <!--Menu-->
     <string name="menu">Menu</string>

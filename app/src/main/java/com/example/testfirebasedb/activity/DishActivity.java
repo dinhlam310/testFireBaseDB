@@ -1,5 +1,14 @@
 package com.example.testfirebasedb.activity;
 
+<<<<<<< HEAD
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+=======
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,19 +28,26 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
+=======
 import androidx.recyclerview.widget.DividerItemDecoration;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testfirebasedb.adapter.DishAdapter;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.entity.Dish;
+<<<<<<< HEAD
+=======
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +64,11 @@ public class DishActivity extends AppCompatActivity {
     SimpleAdapter sAdapter;
     long selectedElementId=-1;
     ListView listView;
+<<<<<<< HEAD
+    List<Dish> dishesList = new ArrayList<Dish>();
+=======
     List<Dish> dishesList = new ArrayList<>();
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     Dish tempDish;
     DishAdapter myDishesViewAdapter;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Dish");
@@ -76,7 +96,33 @@ public class DishActivity extends AppCompatActivity {
 //        dishesList.add(new Dish("Hamburger",120,100,70,10, Dish.enumFood.Meat,R.drawable.hamburger));
 //        dishesList.add(new Dish("Carrot",50,5,10,50, Dish.enumFood.FruitAndVegetable,R.drawable.carrot));
 //        dishesList.add(new Dish("Salad",50,5,10,50,Dish.enumFood.fishAndSeaFood,R.drawable.salad));
+<<<<<<< HEAD
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dishesList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Dish dish = dataSnapshot.getValue(Dish.class);
+                    dishesList.add(dish);
+                }
+                myDishesViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        myDishesViewAdapter = new DishAdapter(dishesList,DishActivity.this);
+        recyclerView.setAdapter(myDishesViewAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        selectedElementId = -1;
+        Button btnBack = (Button)findViewById(R.id.from_dishes_to_menu);
+        ImageButton btnDish_Add = (ImageButton) findViewById(R.id.db_dish_add);
+=======
         initUI();
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference myRef = database.getReference("message");
 //        myRef.addValueEventListener(new ValueEventListener() {
@@ -94,7 +140,11 @@ public class DishActivity extends AppCompatActivity {
 //                Toast.makeText(DishActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
+<<<<<<< HEAD
+
+=======
         Button btnBack = (Button)findViewById(R.id.from_dishes_to_menu);
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +152,10 @@ public class DishActivity extends AppCompatActivity {
             }
         });
     }
+<<<<<<< HEAD
+    public void onCreateDish(View view){
+        Intent intent = new Intent(this, com.example.testfirebasedb.activity.DishesEditorActivity.class);
+=======
 
     private void initUI() {
         myDishesViewAdapter = new DishAdapter(dishesList, new DishAdapter.IClickListener() {
@@ -280,10 +334,26 @@ public class DishActivity extends AppCompatActivity {
 
     public void onCreateDish(View view){
         Intent intent = new Intent(this, DishesEditorActivity.class);
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         startActivity(intent); // transfer control to editor
 //        tempDish = (Dish)getIntent().getSerializableExtra("DISH");
 //        dishesList.add(tempDish);
 //        recyclerView.setAdapter(myDishesViewAdapter);
         selectedElementId=-1;
     }
+<<<<<<< HEAD
+    public void onEditDish(View view) {
+        if (selectedElementId<0) {
+            Toast.makeText(this, getString(R.string.pick_dish), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //fill with new data
+        Dish dish = new Dish();
+        map=data.get((int)selectedElementId);
+    }
+
+    public void onDeleteDish(View view) {
+    }
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 }

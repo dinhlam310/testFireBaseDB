@@ -3,13 +3,21 @@ package com.example.testfirebasedb.entity;
 import java.io.Serializable;
 import java.util.Arrays;
 
+<<<<<<< HEAD
+public class Dish {
+=======
 public class Dish implements Serializable {
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     private String name; //Ten cua mon an
     private int caloriesPer100Gm; //so calories tren 100 g
     private int fatPer100Gm; //ham luong chat beo tren 100 g
     private int proteinPer100Gm; // ham luong chat dam tren 100 g
     private int fiberPer100Gm; //ham luong chat xo tren 100 g
     private String typeOfFood;
+<<<<<<< HEAD
+    private String imgUrl;
+
+=======
     private int weight;
     private String imgUrl;
 
@@ -21,6 +29,7 @@ public class Dish implements Serializable {
         this.weight = weight;
     }
 
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     public int getProteinPer100Gm() {
         return proteinPer100Gm;
     }
@@ -79,19 +88,32 @@ public class Dish implements Serializable {
         this.caloriesPer100Gm = caloriesPer100Gm;
     }
 
+<<<<<<< HEAD
+    public Dish(String name, int caloriesPer100Gm,int fatPer100Gm,int proteinPer100Gm,int fiberPer100Gm,enumFood enumFood,String imgUrl) {
+=======
     public Dish(String name, int caloriesPer100Gm,int weight,int fatPer100Gm,int proteinPer100Gm,int fiberPer100Gm,enumFood enumFood,String imgUrl) {
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         this.caloriesPer100Gm = caloriesPer100Gm;
         this.name = name;
         this.fatPer100Gm = fatPer100Gm;
         this.proteinPer100Gm = proteinPer100Gm;
         this.fiberPer100Gm = fiberPer100Gm;
         this.typeOfFood = String.valueOf(enumFood);
+<<<<<<< HEAD
+        this.imgUrl = imgUrl;
+    }
+    public int parseCalories(int weight) {
+        return caloriesPer100Gm * weight / 100;
+    }
+
+=======
         this.weight = weight;
         this.imgUrl = imgUrl;
     }
     public int parseCalories(int weight) {
         return (proteinPer100Gm*4+fatPer100Gm*9-fiberPer100Gm*4) * weight / 100;
     }
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     public String getName() {
         return name;
     }

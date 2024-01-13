@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD
+=======
     <TextView
         android:id="@+id/textView_CaloOut"
         android:layout_width="wrap_content"
@@ -36,6 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTotal" />
 
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     <Button
         android:id="@+id/calendarButton"
         android:layout_width="248dp"
@@ -52,7 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+<<<<<<< HEAD
+        android:text="TextView"
+=======
         android:text="0"
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +71,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="168dp"
+<<<<<<< HEAD
+        android:text="TextView"
+=======
         android:text="0"
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +85,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
         android:layout_marginEnd="80dp"
+<<<<<<< HEAD
+        android:text="TextView"
+=======
         android:text="0"
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +97,11 @@
         android:id="@+id/recyclerViewDish"
         android:layout_width="407dp"
         android:layout_height="152dp"
+<<<<<<< HEAD
+        android:layout_marginBottom="44dp"
+=======
         android:layout_marginBottom="40dp"
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewExercise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,6 +115,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+<<<<<<< HEAD
+=======
     <ImageButton
         android:id="@+id/diary_dish_add_button"
         android:layout_width="50dp"
@@ -108,15 +129,23 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
         app:layout_constraintEnd_toEndOf="parent" />
 
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     <TextView
         android:id="@+id/textViewDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:layout_marginBottom="12dp"
+        android:text="Dish"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
+        app:layout_constraintEnd_toEndOf="parent"
+=======
         android:layout_marginBottom="16dp"
         android:text="Dish"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
         app:layout_constraintEnd_toStartOf="@+id/diary_dish_add_button"
         app:layout_constraintHorizontal_bias="0.899"
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

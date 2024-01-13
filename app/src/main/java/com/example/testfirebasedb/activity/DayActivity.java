@@ -1,14 +1,21 @@
 package com.example.testfirebasedb.activity;
 
 import android.app.DatePickerDialog;
+<<<<<<< HEAD
+import android.content.Intent;
+=======
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+<<<<<<< HEAD
+=======
 import android.widget.ImageView;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.adapter.DishAdapter;
+<<<<<<< HEAD
+=======
 import com.example.testfirebasedb.adapter.DishInDayAdapter;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import com.example.testfirebasedb.adapter.ExerciseAdapter;
 import com.example.testfirebasedb.adapter.ExerciseInDayAdapter;
 import com.example.testfirebasedb.entity.Day;
@@ -48,7 +58,11 @@ public class DayActivity extends AppCompatActivity {
     private ExerciseInDayAdapter mExerciseAdapter;
     private List<Exercise> mListExercise;
     private List<Dish> mListDish;
+<<<<<<< HEAD
+    private DishAdapter mDishAdapter;
+=======
     private DishInDayAdapter mDishAdapter;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     String selectedDate;
 
     @Override
@@ -91,6 +105,8 @@ public class DayActivity extends AppCompatActivity {
         });
 //        getListExerciseFromDB();
 //        getListDishFromDB();
+<<<<<<< HEAD
+=======
         ImageView btn_add_dish = (ImageView) findViewById(R.id.diary_dish_add_button);
         btn_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,10 +116,15 @@ public class DayActivity extends AppCompatActivity {
             }
         });
 
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         initUiDish();
         initUiExercise();
         loadDayData(selectedDate);
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     // Hàm lấy danh sách bài tập từ Firebase Realtime Database
 //    private void getListExerciseFromDB() {
 //        DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child("Exercise");
@@ -145,6 +166,10 @@ public class DayActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+<<<<<<< HEAD
+
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     private void initUiExercise() {
         exercise = findViewById(R.id.recyclerViewExercise);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -178,6 +203,9 @@ public class DayActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dish.addItemDecoration(dividerItemDecoration);
         mListDish = new ArrayList<>();
+<<<<<<< HEAD
+        mDishAdapter = new DishAdapter(mListDish, this);
+=======
         mDishAdapter = new DishInDayAdapter(mListDish, new DishInDayAdapter.IClickListener() {
             @Override
             public void onClickDeleteItem(Dish dish) {
@@ -194,6 +222,7 @@ public class DayActivity extends AppCompatActivity {
 
             }
         }, this);
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         dish.setAdapter(mDishAdapter);
     }
 
@@ -302,6 +331,11 @@ public class DayActivity extends AppCompatActivity {
                         mExerciseAdapter.notifyDataSetChanged();
 
                         // Chuyển sang ExerciseActivity với dữ liệu selectedDate
+<<<<<<< HEAD
+                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
+                        intent.putExtra("THOI_GIAN", selectedDate);
+                        startActivity(intent);
+=======
 //                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
 //                        intent.putExtra("THOI_GIAN", selectedDate);
 //                        startActivity(intent);
@@ -309,6 +343,7 @@ public class DayActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("THOI_GIAN", selectedDate);
                         editor.apply();
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
                     }
                 } else {
                     // Tạo bản ghi mới và lưu vào Firebase
@@ -329,6 +364,11 @@ public class DayActivity extends AppCompatActivity {
                                 mDishAdapter.notifyDataSetChanged();
                                 mExerciseAdapter.notifyDataSetChanged();
                                 Toast.makeText(DayActivity.this, "Đã tạo bản ghi mới cho ngày được chọn.", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+                                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
+                                intent.putExtra("THOI_GIAN", selectedDate);
+                                startActivity(intent);
+=======
 //                                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
 //                                intent.putExtra("THOI_GIAN", selectedDate);
 //                                startActivity(intent);
@@ -336,6 +376,7 @@ public class DayActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("THOI_GIAN", selectedDate);
                                 editor.apply();
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
                             } else {
                                 Toast.makeText(DayActivity.this, "Không thể tạo bản ghi mới.", Toast.LENGTH_SHORT).show();
                             }

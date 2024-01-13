@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+<<<<<<< HEAD
+    android:layout_height="wrap_content"
+    tools:context=".activity.ExerciseActivity">
+
+=======
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.ExerciseActivity">
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     <RelativeLayout
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
@@ -30,6 +36,38 @@
             android:textAlignment="center"
             android:text="Exercise">
         </TextView>
+<<<<<<< HEAD
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            android:layout_marginTop="50dp">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                app:queryHint="Search here...."
+                app:iconifiedByDefault="false"
+                android:textAlignment="center" />
+        </androidx.cardview.widget.CardView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_add_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="@color/green"
+                android:text="Add">
+            </Button>
+        </RelativeLayout>
+=======
 
         <androidx.appcompat.widget.SearchView
             android:layout_width="370dp"
@@ -50,6 +88,7 @@
             android:backgroundTint="@color/green"
             android:text="Add">
         </Button>
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

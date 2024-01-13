@@ -3,16 +3,24 @@ package com.example.testfirebasedb.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
+import androidx.appcompat.widget.SearchView;
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+<<<<<<< HEAD
+import android.content.DialogInterface;
+=======
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -48,7 +56,25 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUi();
+<<<<<<< HEAD
+        SearchView searchView_item = findViewById(R.id.search_item);
+        searchView_item.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+        searchView_item.clearFocus();
+        ImageButton btnBack = findViewById(R.id.back_main_menu);
+=======
         ImageButton btnBack = (ImageButton)findViewById(R.id.back_main_menu);
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +90,24 @@ public class ExerciseActivity extends AppCompatActivity {
         });
         getListUserFromDB();
     }
+<<<<<<< HEAD
+
+    private void filterList(String text) {
+        List<Exercise> filterList = new ArrayList<>();
+        for (Exercise exercise : mListExercise){
+            if(exercise.getName().toLowerCase().contains(text.toLowerCase())){
+                filterList.add(exercise);
+            }
+        }
+        if (filterList.isEmpty()){
+            Toast.makeText(this, "Không có kết quả tìm thấy", Toast.LENGTH_SHORT).show();
+        }else {
+            mExerciseAdapter.setFilterList(filterList);
+        }
+    }
+
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     private void initUi(){
         rcvExercise = findViewById(R.id.rcv_exercise);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -94,6 +138,10 @@ public class ExerciseActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.exercise_editor);
         Window window = dialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+<<<<<<< HEAD
+        window.setGravity(Gravity.BOTTOM);
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         dialog.setCancelable(true);
 
         TextView textView_name = dialog.findViewById(R.id.edit_exercise_name);
@@ -252,9 +300,13 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private void addExerciseToDay(Exercise exercise) {
+<<<<<<< HEAD
+        String selectedDate = getIntent().getStringExtra("THOI_GIAN");
+=======
 //        String selectedDate = getIntent().getStringExtra("THOI_GIAN");
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String selectedDate = sharedPreferences.getString("THOI_GIAN", "");
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
         DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise").push();
         exerciseRef.setValue(exercise);
         Toast.makeText(ExerciseActivity.this, "Thêm bài tập thành công", Toast.LENGTH_SHORT).show();
