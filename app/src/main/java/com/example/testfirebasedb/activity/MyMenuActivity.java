@@ -6,7 +6,10 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testfirebasedb.R;
+<<<<<<< HEAD
 import com.example.testfirebasedb.entity.Day;
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 import com.example.testfirebasedb.listeners.ToWindowOnClick;
 
 public class MyMenuActivity extends AppCompatActivity {

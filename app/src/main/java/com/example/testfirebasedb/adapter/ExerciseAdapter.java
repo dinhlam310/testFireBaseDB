@@ -18,10 +18,13 @@ import java.util.List;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
     private List<Exercise> mListExercise;
     private IClickListener mClickListener;
+<<<<<<< HEAD
     public void setFilterList(List<Exercise> filterList){
         this.mListExercise = filterList;
         notifyDataSetChanged();
     }
+=======
+>>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
 
     public interface  IClickListener {
          void onClickDeleteItem(Exercise exercise);
