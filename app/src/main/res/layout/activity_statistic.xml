@@ -15,8 +15,15 @@
             android:text="@string/to_menu">
         </Button>
     </RelativeLayout>
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
+    <HorizontalScrollView
+        android:id="@+id/horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </HorizontalScrollView>
 </LinearLayout>

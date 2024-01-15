@@ -2,6 +2,7 @@ package com.example.testfirebasedb.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.HorizontalScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +20,9 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class StatisticActivity extends AppCompatActivity {
     private BarChart barChart;
@@ -42,6 +46,7 @@ public class StatisticActivity extends AppCompatActivity {
     public static final int MONTH_DIAGRAM = 2;
     public static final int YEAR_DIAGRAM = 3;
     private static int diagramID = DAY_DIAGRAM;
+    HorizontalScrollView horizontalScrollView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class StatisticActivity extends AppCompatActivity {
 //        int month = currentDate.getMonthValue();
 //        int year = currentDate.getYear();
         barChart = findViewById(R.id.chart);
+        barChart.getAxisRight().setDrawLabels(false);
 //        MyDate date = new MyDate();
 //        Calendar calendar = Calendar.getInstance();
 //        calendar.setTime(date);
@@ -70,10 +76,7 @@ public class StatisticActivity extends AppCompatActivity {
                         dataValsDate.add(day.getDateOfDiary());
                         i++;
                     }
-                    try {
                         showChart(dataValsCaloIn,dataValsDate);
-                    }catch (NullPointerException nullPointerException){};
-
                 }else{
                     barChart.clear();
                     barChart.invalidate();
@@ -88,28 +91,23 @@ public class StatisticActivity extends AppCompatActivity {
     }
 
     private void showChart(ArrayList<BarEntry> dataValsCaloIn, ArrayList<String> dataValsDate) {
-        BarDataSet bardataset = new BarDataSet( dataValsCaloIn,"CaloriesIn");
-        barChart.animateY(5000);
+        BarDataSet bardataset = new BarDataSet(dataValsCaloIn, "CaloriesIn");
+        barChart.animateY(2000);
         BarData data = new BarData(bardataset);
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         bardataset.setValueTextSize(16f);
-        data.setBarWidth(0.9f);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(dataValsDate));
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getXAxis().setGranularity(1f);
-//        barChart.getXAxis().setGranularityEnabled(true);
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
-        barChart.setExtraTopOffset(5f);
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
-        barChart.setMinimumWidth(30);
+        barChart.invalidate(); //refresh
+        data.setValueTextColor(Color.RED);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(dataValsDate));
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.setScaleEnabled(true);
-        barChart.getAxisLeft().setGranularity(1f);
+        barChart.setDragEnabled(true);
+        barChart.setScaleEnabled(true);
         Legend l = barChart.getLegend();
-        l.setTextSize(20f);
+        l.setTextSize(10f);
         l.setTextColor(Color.RED);
         l.setForm(Legend.LegendForm.CIRCLE);
-        barChart.invalidate(); //refresh
     }
 }
