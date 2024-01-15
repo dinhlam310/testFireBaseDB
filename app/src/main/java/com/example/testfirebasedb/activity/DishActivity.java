@@ -124,7 +124,7 @@ public class DishActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-        ImageButton btnDish_Add = (ImageButton) findViewById(R.id.db_dish_add);
+//        ImageButton btnDish_Add = (ImageButton) findViewById(R.id.db_dish_add);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
