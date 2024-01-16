@@ -63,31 +63,32 @@ public class StatisticActivity extends AppCompatActivity {
 //        calendar.setTime(date);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Day");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<BarEntry> dataValsCaloIn = new ArrayList();
-                ArrayList<String> dataValsDate = new ArrayList();
-                float i = 0;
-                if(snapshot.hasChildren()){
-                    for(DataSnapshot myDataSnapshot : snapshot.getChildren()){
-                        Day day = myDataSnapshot.getValue(Day.class);
-                        dataValsCaloIn.add(new BarEntry(i,day.getCaloIn()));
-                        dataValsDate.add(day.getDateOfDiary());
-                        i++;
-                    }
+        try {
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList<BarEntry> dataValsCaloIn = new ArrayList();
+                    ArrayList<String> dataValsDate = new ArrayList();
+                    float i = 0;
+                    if(snapshot.hasChildren()){
+                        for(DataSnapshot myDataSnapshot : snapshot.getChildren()){
+                            Day day = myDataSnapshot.getValue(Day.class);
+                            dataValsCaloIn.add(new BarEntry(i,day.getCaloIn()));
+                            dataValsDate.add(day.getDateOfDiary());
+                            i++;
+                        }
                         showChart(dataValsCaloIn,dataValsDate);
-                }else{
-                    barChart.clear();
-                    barChart.invalidate();
+                    }else{
+                        barChart.clear();
+                        barChart.invalidate();
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
+                }
+            });
+        }catch (NullPointerException exception){}
     }
 
     private void showChart(ArrayList<BarEntry> dataValsCaloIn, ArrayList<String> dataValsDate) {

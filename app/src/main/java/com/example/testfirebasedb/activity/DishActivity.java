@@ -179,6 +179,9 @@ public class DishActivity extends AppCompatActivity {
         TextView textView_name = dialog.findViewById(R.id.edit_dish_name);
         TextView textView_gam = dialog.findViewById(R.id.edit_dish_weight_gam);
         TextView textView_calories = dialog.findViewById(R.id.edit_dish_calories);
+        TextView textView_protein = dialog.findViewById(R.id.edit_dish_protein);
+        TextView textView_fat = dialog.findViewById(R.id.edit_dish_fat);
+        TextView textView_fiber = dialog.findViewById(R.id.edit_dish_fiber);
         FloatingActionButton button_add_weight = dialog.findViewById(R.id.btn_add_weight);
         FloatingActionButton button_minus_weight = dialog.findViewById(R.id.btn_minus_weight);
         ImageButton button_exit = dialog.findViewById(R.id.btn_exit_dish_editor);
@@ -188,6 +191,9 @@ public class DishActivity extends AppCompatActivity {
         textView_gam.setText("Weight: "+dish.getWeight());
         textView_name.setText("Name: "+dish.getName());
         textView_calories.setText("Calories: "+dish.getCaloriesPer100Gm());
+        textView_protein.setText("Protein: "+dish.getProteinPer100Gm());
+        textView_fat.setText("Fat: "+dish.getFatPer100Gm());
+        textView_fiber.setText("Fiber: "+dish.getFiberPer100Gm());
         button_add_weight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +204,9 @@ public class DishActivity extends AppCompatActivity {
                 editText_weight.setText(dish.getWeight()+"");
                 textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
                 textView_calories.setText("Calories: " + dish.parseCalories(Integer.parseInt(editText_weight.getText().toString())));
+                textView_protein.setText("Protein: "+dish.getProteinPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
+                textView_fat.setText("Fat: "+dish.getFatPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
+                textView_fiber.setText("Fiber: "+dish.getFiberPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
             }
         });
         button_minus_weight.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +218,9 @@ public class DishActivity extends AppCompatActivity {
                 editText_weight.setText(dish.getWeight()+"");
                 textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
                 textView_calories.setText("Calories: " + dish.parseCalories(Integer.parseInt(editText_weight.getText().toString())));
+                textView_protein.setText("Protein: "+dish.getProteinPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
+                textView_fat.setText("Fat: "+dish.getFatPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
+                textView_fiber.setText("Fiber: "+dish.getFiberPer100Gm()*Integer.parseInt(editText_weight.getText().toString())/100);
             }
         });
         Button button_add_dish_editor = dialog.findViewById(R.id.btn_add_dish_editor);

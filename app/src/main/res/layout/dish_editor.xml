@@ -51,6 +51,24 @@
                     android:layout_height="wrap_content"
                     android:text="Calories: ">
                 </TextView>
+                <TextView
+                    android:id="@+id/edit_dish_protein"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Protein: ">
+                </TextView>
+                <TextView
+                    android:id="@+id/edit_dish_fat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fat: ">
+                </TextView>
+                <TextView
+                    android:id="@+id/edit_dish_fiber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fiber: ">
+                </TextView>
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -59,7 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
@@ -103,6 +121,6 @@
         android:text="Thêm món"
         android:layout_marginStart="130dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="140dp">
+        android:layout_marginTop="190dp">
     </Button>
 </RelativeLayout>

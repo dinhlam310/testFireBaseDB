@@ -90,7 +90,7 @@ public class Dish implements Serializable {
         this.imgUrl = imgUrl;
     }
     public int parseCalories(int weight) {
-        return (proteinPer100Gm*4+fatPer100Gm*9-fiberPer100Gm*4) * weight / 100;
+        return Math.abs(proteinPer100Gm*4+fatPer100Gm*9-fiberPer100Gm*4) * weight / 100;
     }
     public String getName() {
         return name;
@@ -98,7 +98,8 @@ public class Dish implements Serializable {
 
     public int getCaloriesPer100Gm() {
         return caloriesPer100Gm;
-    }
+    } // 50 - 100
+                                                    //VD 120 (g) => tinh protein = 120*getProteinPer100G() / 100;
 
     public void setName(String name) {
         this.name = name;
