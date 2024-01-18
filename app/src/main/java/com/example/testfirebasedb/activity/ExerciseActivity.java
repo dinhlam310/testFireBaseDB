@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +32,9 @@ import android.widget.Toast;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.adapter.ExerciseAdapter;
 import com.example.testfirebasedb.entity.Exercise;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,10 +49,41 @@ public class ExerciseActivity extends AppCompatActivity {
     private RecyclerView rcvExercise;
     private ExerciseAdapter mExerciseAdapter;
     private List<Exercise> mListExercise;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_exercise);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home){
+                    startActivity(new Intent(getApplicationContext(), DayActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }else if(id == R.id.bottom_dish){
+                    startActivity(new Intent(getApplicationContext(), DishActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_exercise){
+                    return true;
+                }
+                else if(id == R.id.bottom_profile){
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }else if(id == R.id.bottom_statistics){
+                    startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
+            }
+        });
         initUi();
         SearchView searchView_item = findViewById(R.id.search_item);
         searchView_item.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -66,7 +100,6 @@ public class ExerciseActivity extends AppCompatActivity {
         });
         searchView_item.clearFocus();
         ImageButton btnBack = findViewById(R.id.back_main_menu);
-        ImageButton btnBack = (ImageButton)findViewById(R.id.back_main_menu);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,9 +317,9 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private void addExerciseToDay(Exercise exercise) {
-        String selectedDate = getIntent().getStringExtra("THOI_GIAN");
+//        String selectedDate = getIntent().getStringExtra("THOI_GIAN");
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String selectedDate = sharedPreferences.getString("THOI_GIAN", "");
+        String selectedDate = sharedPreferences.getString("THOI_GIAN","");
         DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise").push();
         exerciseRef.setValue(exercise);
         Toast.makeText(ExerciseActivity.this, "Thêm bài tập thành công", Toast.LENGTH_SHORT).show();

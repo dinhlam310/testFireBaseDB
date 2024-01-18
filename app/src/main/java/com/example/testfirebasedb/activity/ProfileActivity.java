@@ -1,6 +1,8 @@
 package com.example.testfirebasedb.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.testfirebasedb.entity.Profile;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.listeners.ToWindowOnClickWithClosing;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText profileHeightEditText;
     EditText profileWeightEditText;
     EditText profileAgeEditText;
-
+    private BottomNavigationView bottomNavigationView;
     FirebaseDatabase database;
     private DatabaseReference ref;
 
@@ -77,6 +81,37 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home){
+                    startActivity(new Intent(getApplicationContext(), DayActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }else if(id == R.id.bottom_dish){
+                    startActivity(new Intent(getApplicationContext(), DishActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_exercise){
+                    startActivity(new Intent(getApplicationContext(), ExerciseActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_profile){
+                    return true;
+                }
+                else if(id == R.id.bottom_statistics){
+                    startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
+            }
+        });
         profile = Profile.getProfile(this);
 
         // Lấy tham chiếu đến node "profile" trên Firebase

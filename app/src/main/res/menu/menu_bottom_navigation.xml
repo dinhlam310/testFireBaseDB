@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bottom_home"
+        android:title="@string/bottom_home"
+        android:icon="@drawable/ic_home">
+    </item>
+    <item android:id="@+id/bottom_dish"
+        android:title="@string/bottom_dish"
+        android:icon="@drawable/ic_favorite">
+    </item>
+    <item android:id="@+id/bottom_exercise"
+        android:title="@string/bottom_exercise"
+        android:icon="@drawable/ic_exercise">
+    </item>
+    <item android:id="@+id/bottom_profile"
+        android:title="@string/bottom_profile"
+        android:icon="@drawable/ic_profile">
+    </item>
+    <item android:id="@+id/bottom_statistics"
+        android:title="Statistic"
+        android:icon="@drawable/ic_statistic">
 
+    </item>
 </menu>

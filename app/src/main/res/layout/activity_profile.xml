@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.testfirebasedb.activity.ProfileActivity"
     style="@style/background_style"
     android:id="@+id/profile_main_view">
@@ -18,7 +19,7 @@
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -54,8 +55,6 @@
                             android:id="@+id/profile_woman_radio_button"
                             android:onClick="onChangeButtonClick"/>
                     </RadioGroup>
-
-
                 </TableRow>
                 <TableRow
                     style="@style/table_row_profile_style">
@@ -166,4 +165,17 @@
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:itemIconTint="@color/custom_color_bottom_navigation"
+            app:itemTextColor="@color/custom_color_bottom_navigation"
+            app:menu="@menu/menu_bottom_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+    </RelativeLayout>
 </LinearLayout>

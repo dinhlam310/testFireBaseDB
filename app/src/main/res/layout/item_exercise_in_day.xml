@@ -35,5 +35,15 @@
                 android:text="CaloBurn: ">
             </TextView>
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_delete_exercise"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:contentDescription="delete_exetr"
+            android:src="@drawable/delete_exercise">
+        </ImageButton>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -4,15 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,10 +22,6 @@ import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> {
     private List<Dish> lst = new ArrayList<>();
-
-    public DishAdapter(List<Dish> lst, Context context) {
-        this.lst = lst;
-
     private IClickListener mClickListener;
     public interface  IClickListener {
         void onClickDeleteItem(Dish dish);
@@ -61,14 +51,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
 //        holder.imageView.setImageResource(di.getImg());
         Glide.with(context).load(lst.get(position).getImgUrl()).into(holder.imageView);
         holder.textView.setText(di.getName());
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,di.getName().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         holder.textCalories.setText(di.getCaloriesPer100Gm()+" calores/100g");
 //        holder.textGam.setText(di.parseCalories(di.getWeight())+" g");
         holder.button_delete.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +65,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         });
 
         holder.button_add_to_diary.setOnClickListener(v -> mClickListener.onClickAddItem(di));
-
     }
 
 
@@ -93,11 +74,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-       final private CardView cardView;
-       final private ImageView imageView;
-       final private TextView textView;
-
         final private CardView cardView;
         final private ImageView imageView;
         final private TextView textView;
@@ -105,7 +81,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         //       final private TextView textGam;
         private ImageButton button_delete;
         private FloatingActionButton button_add_to_diary;
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardview);

@@ -53,6 +53,12 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
         holder.textView.setText(di.getName());
         holder.textCalories.setText(di.getCaloriesPer100Gm()+" calores/100g");
 //        holder.textGam.setText(di.parseCalories(di.getWeight())+" g");
+        holder.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.onClickDeleteItem(di);
+            }
+        });
     }
 
 
@@ -65,9 +71,9 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
         final private CardView cardView;
         final private ImageView imageView;
         final private TextView textView;
+        final private ImageButton imageButton;
         final private TextView textCalories;
         //       final private TextView textGam;
-        private ImageButton button_delete;
         private FloatingActionButton button_add_to_diary;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +82,13 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
             textView = itemView.findViewById(R.id.item_text);
             textCalories = itemView.findViewById(R.id.item_calories);
 //            textGam = itemView.findViewById(R.id.item_g);
+            imageButton = itemView.findViewById(R.id.btn_delete_exercise);
+            imageButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }

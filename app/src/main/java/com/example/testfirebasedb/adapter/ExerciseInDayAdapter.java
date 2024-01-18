@@ -3,6 +3,7 @@ package com.example.testfirebasedb.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,12 @@ public class ExerciseInDayAdapter extends RecyclerView.Adapter<ExerciseInDayAdap
         holder.textView_name.setText("Name: " + exercise.getName());
         holder.textView_duration.setText("Duration: " + exercise.getDuration() + " minute");
         holder.textView_caloburn.setText("CaloBurn: " + exercise.getCaloBurn()+ " kcal");
+        holder.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.onClickDeleteItem(exercise);
+            }
+        });
     }
 
     @Override
@@ -55,11 +62,19 @@ public class ExerciseInDayAdapter extends RecyclerView.Adapter<ExerciseInDayAdap
         private TextView textView_duration;
         private TextView textView_caloburn;
         private TextView textView_name;
+        private ImageButton imageButton;
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             textView_name = itemView.findViewById(R.id.tv_NAME);
             textView_duration = itemView.findViewById(R.id.tv_DURATION);
             textView_caloburn = itemView.findViewById(R.id.tv_CALOBURN);
+            imageButton = itemView.findViewById(R.id.btn_delete_exercise);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }

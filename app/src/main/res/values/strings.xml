@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Calories</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_dish">Dish</string>
+    <string name="bottom_exercise">Exercise</string>
+    <string name="bottom_profile">Profile</string>
+
+
     <string name="action_settings">Settings</string>
 
     <!--General-->
@@ -74,7 +80,6 @@
 
     <string name="eaten_dishes">Eaten dishes</string>
     <string name="exercises_per_day">Exercises per day</string>
-    <string name="exercises_per_day">Exercises per day</string>git
 
     <!--Menu-->
     <string name="menu">Menu</string>
@@ -100,6 +105,5 @@
     <string name="exercise_formula_description_time">t — time (sec)</string>
     <string name="exercise_formula_description_quantity">q — sets quantity</string>
     <string name="enter_exercise_time_quantity">Enter time and quantity</string>
-
 
 </resources>

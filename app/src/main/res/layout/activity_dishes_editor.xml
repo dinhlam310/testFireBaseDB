@@ -163,37 +163,36 @@
                     android:textColorHint="@color/my_text_color"
                     android:textColorLink="@color/my_text_color" />
             </com.google.android.material.textfield.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="bottom">
+
+                <ImageButton
+                    android:id="@+id/dish_editor_OK_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:contentDescription="@string/set"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ok_button" />
+
+                <ImageButton
+                    android:id="@+id/dish_editor_cancel_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="54dp"
+                    android:layout_marginLeft="54dp"
+                    android:layout_toEndOf="@id/dish_editor_OK_button"
+                    android:layout_toRightOf="@id/dish_editor_OK_button"
+                    android:background="@null"
+                    android:contentDescription="@string/cancel"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/cancel_button" />
+            </RelativeLayout>
         </TableLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:gravity="bottom">
-
-        <ImageButton
-            android:id="@+id/dish_editor_OK_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@null"
-            android:contentDescription="@string/set"
-            android:scaleType="centerInside"
-            android:src="@drawable/ok_button" />
-
-        <ImageButton
-            android:id="@+id/dish_editor_cancel_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="54dp"
-            android:layout_marginLeft="54dp"
-            android:layout_toEndOf="@id/dish_editor_OK_button"
-            android:layout_toRightOf="@id/dish_editor_OK_button"
-            android:background="@null"
-            android:contentDescription="@string/cancel"
-            android:scaleType="centerInside"
-            android:src="@drawable/cancel_button" />
-    </RelativeLayout>
 </LinearLayout>

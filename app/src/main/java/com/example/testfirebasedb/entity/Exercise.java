@@ -44,14 +44,11 @@ public class Exercise {
         this.caloBurn = caloBurn;
     }
 
-<<<<<<< HEAD
 //    public float CarloriesFormula(int duration, int caloBurn, int newVal) {
 //        float result = ((float) newVal / (float) duration) * caloBurn;
 //        return Math.round(result * 10.0f) / 10.0f;
 //    }
 
-=======
->>>>>>> b6e2134c8da6faec497d4f7b0346c048be07ffd3
     public float CarloriesFormula(float time) {
         return Math.round((((float) caloBurn / (float) duration) * time) * 10.0f) / 10.0f;
     }

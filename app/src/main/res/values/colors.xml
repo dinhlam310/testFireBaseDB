@@ -11,4 +11,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#00FF00</color>
+    <color name="ruby">#05AD9D</color>
+    <color name="gray">#A8B3A8</color>
+
 </resources>

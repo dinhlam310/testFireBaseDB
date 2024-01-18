@@ -1,12 +1,5 @@
 package com.example.testfirebasedb.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,8 +32,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testfirebasedb.adapter.DishAdapter;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.entity.Dish;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,9 +51,10 @@ public class DishActivity extends AppCompatActivity {
     SimpleAdapter sAdapter;
     long selectedElementId=-1;
     ListView listView;
-    List<Dish> dishesList = new ArrayList<Dish>();
     List<Dish> dishesList = new ArrayList<>();
     Dish tempDish;
+
+    private BottomNavigationView bottomNavigationView;
     DishAdapter myDishesViewAdapter;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Dish");
     private RecyclerView recyclerView;
@@ -66,6 +62,37 @@ public class DishActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_dish);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home){
+                    startActivity(new Intent(getApplicationContext(), DayActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }else if(id == R.id.bottom_dish){
+                    return true;
+                }
+                else if(id == R.id.bottom_exercise){
+                    startActivity(new Intent(getApplicationContext(), ExerciseActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_profile){
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_statistics){
+                    startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
+            }
+        });
         recyclerView = findViewById(R.id.recycle_dishes_view);
         ImageButton btnAddDish = findViewById(R.id.db_dish_add);
         //Render cac mon an tu Firebase
@@ -85,29 +112,6 @@ public class DishActivity extends AppCompatActivity {
 //        dishesList.add(new Dish("Hamburger",120,100,70,10, Dish.enumFood.Meat,R.drawable.hamburger));
 //        dishesList.add(new Dish("Carrot",50,5,10,50, Dish.enumFood.FruitAndVegetable,R.drawable.carrot));
 //        dishesList.add(new Dish("Salad",50,5,10,50,Dish.enumFood.fishAndSeaFood,R.drawable.salad));
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dishesList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Dish dish = dataSnapshot.getValue(Dish.class);
-                    dishesList.add(dish);
-                }
-                myDishesViewAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        myDishesViewAdapter = new DishAdapter(dishesList,DishActivity.this);
-        recyclerView.setAdapter(myDishesViewAdapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        selectedElementId = -1;
-        Button btnBack = (Button)findViewById(R.id.from_dishes_to_menu);
-        ImageButton btnDish_Add = (ImageButton) findViewById(R.id.db_dish_add);
         initUI();
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference myRef = database.getReference("message");
@@ -134,8 +138,6 @@ public class DishActivity extends AppCompatActivity {
             }
         });
     }
-    public void onCreateDish(View view){
-        Intent intent = new Intent(this, com.example.testfirebasedb.activity.DishesEditorActivity.class);
 
     private void initUI() {
         myDishesViewAdapter = new DishAdapter(dishesList, new DishAdapter.IClickListener() {
@@ -181,7 +183,6 @@ public class DishActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String selectedDate = sharedPreferences.getString("THOI_GIAN","");
         DatabaseReference dishRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Dish").push();
-
         dishRef.setValue(dish);
         Toast.makeText(DishActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT).show();
         DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);
@@ -256,7 +257,7 @@ public class DishActivity extends AppCompatActivity {
                 dish1.setWeight(weightInt);
                 dish1.setName(name);
                 dish1.setCalories(calories);
-                Toast.makeText(DishActivity.this, dish1.getWeight()+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DishActivity.this, "Added "+dish1.getWeight()+"(G)", Toast.LENGTH_SHORT).show();
                 addDishToDay(dish);
                 finish();
             }
@@ -319,17 +320,5 @@ public class DishActivity extends AppCompatActivity {
 //        dishesList.add(tempDish);
 //        recyclerView.setAdapter(myDishesViewAdapter);
         selectedElementId=-1;
-    }
-    public void onEditDish(View view) {
-        if (selectedElementId<0) {
-            Toast.makeText(this, getString(R.string.pick_dish), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //fill with new data
-        Dish dish = new Dish();
-        map=data.get((int)selectedElementId);
-    }
-
-    public void onDeleteDish(View view) {
     }
 }

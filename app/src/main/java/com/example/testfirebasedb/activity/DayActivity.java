@@ -1,11 +1,13 @@
 package com.example.testfirebasedb.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,10 +32,13 @@ import com.example.testfirebasedb.entity.Dish;
 import com.example.testfirebasedb.entity.Exercise;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
@@ -49,14 +55,44 @@ public class DayActivity extends AppCompatActivity {
     private ExerciseInDayAdapter mExerciseAdapter;
     private List<Exercise> mListExercise;
     private List<Dish> mListDish;
-    private DishAdapter mDishAdapter;
     private DishInDayAdapter mDishAdapter;
     String selectedDate;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home){
+                    return true;
+                }else if(id == R.id.bottom_dish){
+                    startActivity(new Intent(getApplicationContext(), DishActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_exercise){
+                    startActivity(new Intent(getApplicationContext(), ExerciseActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if(id == R.id.bottom_profile){
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }else if(id == R.id.bottom_statistics){
+                    startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
+            }
+        });
         LocalDate currentDate = LocalDate.now();
         int day = currentDate.getDayOfMonth();
         int month = currentDate.getMonthValue();
@@ -69,7 +105,7 @@ public class DayActivity extends AppCompatActivity {
         caloOut = findViewById(R.id.textCaloOut);
         dish = findViewById(R.id.recyclerViewDish);
         exercise = findViewById(R.id.recyclerViewExercise);
-        String selectedDate = day + "-" + month + "-" + year;
+        selectedDate = day + "-" + month + "-" + year;
         calendarButton.setText(selectedDate);
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +137,17 @@ public class DayActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        ImageView btn_add_exercise = (ImageView) findViewById(R.id.diary_exercise_add_button);
+        btn_add_exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DayActivity.this, ExerciseActivity.class);
+                startActivity(i);
+            }
+        });
+
+
         initUiDish();
         initUiExercise();
         loadDayData(selectedDate);
@@ -156,7 +203,7 @@ public class DayActivity extends AppCompatActivity {
         mExerciseAdapter = new ExerciseInDayAdapter(mListExercise, new ExerciseInDayAdapter.IClickListener() {
             @Override
             public void onClickDeleteItem(Exercise exercise) {
-
+                onClickDeleteExerciseData(exercise);
             }
 
             @Override
@@ -179,11 +226,10 @@ public class DayActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dish.addItemDecoration(dividerItemDecoration);
         mListDish = new ArrayList<>();
-        mDishAdapter = new DishAdapter(mListDish, this);
         mDishAdapter = new DishInDayAdapter(mListDish, new DishInDayAdapter.IClickListener() {
             @Override
             public void onClickDeleteItem(Dish dish) {
-
+                onClickDeleteDishData(dish);
             }
 
             @Override
@@ -197,6 +243,136 @@ public class DayActivity extends AppCompatActivity {
             }
         }, this);
         dish.setAdapter(mDishAdapter);
+    }
+
+//    private void onClickDeleteDishData(Dish dish) {
+//        new AlertDialog.Builder(this)
+//                .setTitle(getString(R.string.app_name))
+//                .setMessage("Ban co chac muon xoa ban ghi nay?")
+//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Dish");
+//                        myref.child(String.valueOf(dish.getName())).removeValue(new DatabaseReference.CompletionListener() {
+//                            @Override
+//                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//                                Toast.makeText(DayActivity.this, "Delete data success", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//                })
+//                .setNegativeButton("Cancel", null)
+//                .show();
+//    }
+
+    private void onClickDeleteDishData(Dish dish) {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.app_name))
+                .setMessage("Bạn có chắc chắn muốn xóa bản ghi này?")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Dish");
+                        Query query = myref.orderByChild("name").equalTo(dish.getName());
+
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
+                                    dishSnapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(DayActivity.this, "Xóa dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                                                loadDayData(selectedDate);
+                                            } else {
+                                                Toast.makeText(DayActivity.this, "Xóa dữ liệu không thành công", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(DayActivity.this, "Lỗi khi truy cập cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                                loadDayData(selectedDate);
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+//    private void onClickDeleteExerciseData(Exercise exercise) {
+//        new AlertDialog.Builder(this)
+//                .setTitle(getString(R.string.app_name))
+//                .setMessage("Ban co chac muon xoa ban ghi nay?")
+//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise");
+//
+//                        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
+//                                    Dish dish = dishSnapshot.getValue(Dish.class);
+//                                    System.out.println(dish.getName());
+//                                    // Thực hiện xử lý với bản ghi Dish ở đây
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//                                // Xử lý khi có lỗi xảy ra
+//                            }
+//                        });
+//                    }
+//                })
+//                .setNegativeButton("Cancel", null)
+//                .show();
+//    }
+
+    private void onClickDeleteExerciseData(Exercise exercise) {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.app_name))
+                .setMessage("Bạn có chắc chắn muốn xóa bản ghi này?")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise");
+                        Query query = myref.orderByChild("name").equalTo(exercise.getName());
+
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
+                                    dishSnapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(DayActivity.this, "Xóa dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                                                loadDayData(selectedDate);
+                                            } else {
+                                                Toast.makeText(DayActivity.this, "Xóa dữ liệu không thành công", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(DayActivity.this, "Lỗi khi truy cập cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                                loadDayData(selectedDate);
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void showDatePicker() {
@@ -215,6 +391,7 @@ public class DayActivity extends AppCompatActivity {
                 loadDayData(selectedDate);
             }
         }, year, month, day);
+
         datePickerDialog.show();
     }
 
@@ -303,9 +480,6 @@ public class DayActivity extends AppCompatActivity {
                         mExerciseAdapter.notifyDataSetChanged();
 
                         // Chuyển sang ExerciseActivity với dữ liệu selectedDate
-                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
-                        intent.putExtra("THOI_GIAN", selectedDate);
-                        startActivity(intent);
 //                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
 //                        intent.putExtra("THOI_GIAN", selectedDate);
 //                        startActivity(intent);
@@ -333,9 +507,6 @@ public class DayActivity extends AppCompatActivity {
                                 mDishAdapter.notifyDataSetChanged();
                                 mExerciseAdapter.notifyDataSetChanged();
                                 Toast.makeText(DayActivity.this, "Đã tạo bản ghi mới cho ngày được chọn.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
-                                intent.putExtra("THOI_GIAN", selectedDate);
-                                startActivity(intent);
 //                                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
 //                                intent.putExtra("THOI_GIAN", selectedDate);
 //                                startActivity(intent);
