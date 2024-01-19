@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@color/green">
-<!--        <ImageButton-->
-<!--            android:layout_width="35dp"-->
-<!--            android:layout_height="35dp"-->
-<!--            android:paddingTop="10dp"-->
-<!--            android:background="@null"-->
-<!--            android:scaleType="centerInside"-->
-<!--            android:layout_alignParentLeft="true"-->
-<!--            android:id="@+id/back_main_menu"-->
-<!--            android:src="@drawable/back_main_menu"-->
-<!--            android:contentDescription="from_exercise_to_menu">-->
-<!--        </ImageButton>-->
+        <!--        <ImageButton-->
+        <!--            android:layout_width="35dp"-->
+        <!--            android:layout_height="35dp"-->
+        <!--            android:paddingTop="10dp"-->
+        <!--            android:background="@null"-->
+        <!--            android:scaleType="centerInside"-->
+        <!--            android:layout_alignParentLeft="true"-->
+        <!--            android:id="@+id/back_main_menu"-->
+        <!--            android:src="@drawable/back_main_menu"-->
+        <!--            android:contentDescription="from_exercise_to_menu">-->
+        <!--        </ImageButton>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

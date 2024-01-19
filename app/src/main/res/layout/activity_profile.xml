@@ -15,10 +15,31 @@
 
             android:text = "@string/profile">
         </TextView>
-<!--        <Button-->
-<!--            android:id="@+id/from_profile_to_menu"-->
-<!--            style="@style/header_button"-->
-<!--            android:text="@string/to_menu"></Button>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+            <ImageButton
+                style="@style/header_button"
+                android:scaleType="centerInside"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:id="@+id/btn_log_out"
+                android:src="@drawable/ic_log_out">
+            </ImageButton>
+            <TextView
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Out">
+            </TextView>
+        </LinearLayout>
+        <!--        <Button-->
+        <!--            android:id="@+id/from_profile_to_menu"-->
+        <!--            style="@style/header_button"-->
+        <!--            android:text="@string/to_menu"></Button>-->
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -86,6 +107,7 @@
                     <EditText
                         android:id="@+id/profile_weight"
                         tools:text=""
+                        android:textColor="@color/black"
                         android:onClick="onChangeButtonClick"
                         style="@style/edit_text_profile_style"/>
                     <TextView
@@ -102,6 +124,7 @@
                         android:id="@+id/profile_age"
                         tools:text=""
                         android:onClick="onChangeButtonClick"
+                        android:textColor="@color/black"
                         style="@style/edit_text_profile_style"/>
                     <TextView
                         android:text="@string/years"
@@ -157,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:onClick="onChangeButtonClick"
+                    android:textColor="@color/black"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingEnd="0dp"

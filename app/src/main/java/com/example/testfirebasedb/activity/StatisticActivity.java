@@ -1,6 +1,8 @@
 package com.example.testfirebasedb.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.entity.Day;
 import com.example.testfirebasedb.entity.Profile;
-import com.example.testfirebasedb.listeners.ToWindowOnClickWithClosing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -88,8 +89,10 @@ public class StatisticActivity extends AppCompatActivity {
 //        MyDate date = new MyDate();
 //        Calendar calendar = Calendar.getInstance();
 //        calendar.setTime(date);
+        SharedPreferences sharedPreferences1 = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userEmail = sharedPreferences1.getString("userEmail","");
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("Day");
+        ref = database.getReference().child("User").child(userEmail).child("Day");
         try {
             ref.addValueEventListener(new ValueEventListener() {
                 @Override

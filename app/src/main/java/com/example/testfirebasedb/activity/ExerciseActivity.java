@@ -53,7 +53,7 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_exercise);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.bottom_exercise);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -325,10 +325,11 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private void addExerciseToDay(Exercise exercise) {
-//        String selectedDate = getIntent().getStringExtra("THOI_GIAN");
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String selectedDate = sharedPreferences.getString("THOI_GIAN","");
-        DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise").push();
+        SharedPreferences sharedPreferences1 = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userEmail = sharedPreferences1.getString("userEmail","");
+        DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate).child("Exercise").push();
         exerciseRef.setValue(exercise);
         Toast.makeText(ExerciseActivity.this, "Thêm bài tập thành công", Toast.LENGTH_SHORT).show();
         DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);

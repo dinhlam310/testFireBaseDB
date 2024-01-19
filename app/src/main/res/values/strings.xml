@@ -4,6 +4,7 @@
     <string name="bottom_dish">Dish</string>
     <string name="bottom_exercise">Exercise</string>
     <string name="bottom_profile">Profile</string>
+    <string name="bottom_log_out">Sign Out</string>
 
 
     <string name="action_settings">Settings</string>
