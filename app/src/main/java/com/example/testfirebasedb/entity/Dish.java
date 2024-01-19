@@ -12,6 +12,7 @@ public class Dish implements Serializable {
     private String typeOfFood;
     private int weight;
     private String imgUrl;
+    private int caloIn;
 
     public int getWeight() {
         return weight;
@@ -31,6 +32,10 @@ public class Dish implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public int getCaloIn() {
+        return caloriesPer100Gm*weight/100;
     }
 
     public static enum enumFood{ //Starchy la tinh bot vd(rice,noodles) | nut là các loại hạt vd như ngũ cốc , đậu nành ,...
@@ -90,7 +95,16 @@ public class Dish implements Serializable {
         this.imgUrl = imgUrl;
     }
     public int parseCalories(int weight) {
-        return (proteinPer100Gm*4+fatPer100Gm*9-fiberPer100Gm*4) * weight / 100;
+        return Math.abs(proteinPer100Gm+fatPer100Gm-fiberPer100Gm) * weight / 100;
+    }
+    public int parseProtein(int weight){
+        return proteinPer100Gm*weight/100;
+    }
+    public int parseFat(int weight){
+        return fatPer100Gm*weight/100;
+    }
+    public int parseFiber(int weight){
+        return fiberPer100Gm*weight/100;
     }
     public String getName() {
         return name;
@@ -98,7 +112,8 @@ public class Dish implements Serializable {
 
     public int getCaloriesPer100Gm() {
         return caloriesPer100Gm;
-    }
+    } // 50 - 100
+    //VD 120 (g) => tinh protein = 120*getProteinPer100G() / 100;
 
     public void setName(String name) {
         this.name = name;

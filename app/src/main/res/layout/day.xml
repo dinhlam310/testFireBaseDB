@@ -142,6 +142,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewDish" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
@@ -156,5 +157,12 @@
             app:itemIconTint="@color/custom_color_bottom_navigation"
             app:itemTextColor="@color/custom_color_bottom_navigation"
             app:menu="@menu/menu_bottom_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_above="@+id/bottom_navigation">
+
+        </ScrollView>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

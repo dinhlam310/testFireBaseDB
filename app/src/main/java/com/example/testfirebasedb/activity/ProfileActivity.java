@@ -1,6 +1,9 @@
 package com.example.testfirebasedb.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,13 +12,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.testfirebasedb.UserManage.SignInActivity;
 import com.example.testfirebasedb.entity.Profile;
 import com.example.testfirebasedb.R;
-import com.example.testfirebasedb.listeners.ToWindowOnClickWithClosing;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,50 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     FirebaseDatabase database;
     private DatabaseReference ref;
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_profile);
-//        profile = Profile.getProfile(this);
-//        findViewById(R.id.from_profile_to_menu).setOnClickListener(new ToWindowOnClickWithClosing(this, MyMenuActivity.class));
-////        ((EditText) findViewById(R.id.profile_age)).setText(profile.getAge() + "");
-////        ((EditText) findViewById(R.id.profile_height)).setText(profile.getHeight() + "");
-////        ((EditText) findViewById(R.id.profile_weight)).setText(profile.getWeight() + "");
-////        ((RadioButton) findViewById(R.id.profile_woman_radio_button)).setChecked(!profile.getGender());
-////        ((EditText) findViewById(R.id.profile_aim_kal_number)).setText(profile.getAimCalorie() + "");
-////        optimalCalorieNumber = ((TextView) findViewById(R.id.profile_optimal_kal_number));
-////        optimalCalorieNumber.setText(profile.calculateCalories() + " " + getString(R.string.kilocalories));
-////
-////        profileHeightEditText = findViewById(R.id.profile_height);
-////        profileWeightEditText = findViewById(R.id.profile_weight);
-////        profileAgeEditText = findViewById(R.id.profile_age);
-//
-//        database = FirebaseDatabase.getInstance();
-//        ref  = database.getReference().child("Profile");
-//
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                // Kiểm tra xem có dữ liệu trong snapshot hay không
-//                if (snapshot.exists()) {
-//                    // Lấy dữ liệu từ snapshot và gán cho profile
-//                    profile = snapshot.getValue(Profile.class);
-//
-//                    // Kiểm tra xem profile có null hay không
-//                    if (profile != null) {
-//                        // Thực hiện các hành động khác sau khi lấy dữ liệu thành công
-//                        updateUI();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +76,10 @@ public class ProfileActivity extends AppCompatActivity {
         profile = Profile.getProfile(this);
 
         // Lấy tham chiếu đến node "profile" trên Firebase
+        SharedPreferences sharedPreferences1 = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userEmail = sharedPreferences1.getString("userEmail","");
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("Profile");
+        ref = database.getReference().child("User").child(userEmail).child("Profile");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,8 +102,6 @@ public class ProfileActivity extends AppCompatActivity {
                 // Xử lý sự kiện khi có lỗi xảy ra
             }
         });
-
-        findViewById(R.id.from_profile_to_menu).setOnClickListener(new ToWindowOnClickWithClosing(this, MyMenuActivity.class));
         ((EditText) findViewById(R.id.profile_age)).setText(profile.getAge() + "");
         ((EditText) findViewById(R.id.profile_height)).setText(profile.getHeight() + "");
         ((EditText) findViewById(R.id.profile_weight)).setText(profile.getWeight() + "");
@@ -148,6 +109,24 @@ public class ProfileActivity extends AppCompatActivity {
         ((EditText) findViewById(R.id.profile_aim_kal_number)).setText(profile.getAimCalorie() + "");
         optimalCalorieNumber = ((TextView) findViewById(R.id.profile_optimal_kal_number));
         optimalCalorieNumber.setText(profile.calculateCalories() + " " + getString(R.string.kilocalories));
+        findViewById(R.id.btn_log_out).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(ProfileActivity.this)
+                        .setTitle(getString(R.string.bottom_log_out))
+                        .setMessage("Do you want to log out this account")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                                overridePendingTransition(0, 0);
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            }
+        });
 
         profileHeightEditText = findViewById(R.id.profile_height);
         profileWeightEditText = findViewById(R.id.profile_weight);
@@ -168,41 +147,6 @@ public class ProfileActivity extends AppCompatActivity {
         profileWeightEditText = findViewById(R.id.profile_weight);
         profileAgeEditText = findViewById(R.id.profile_age);
     }
-
-//    public void onGenderRadioButtonClick(View view) {
-////        switch (view.getId()) {
-////            case R.id.profile_man_radio_button:
-////                profile.setGender(this, true);
-////                break;
-////            case R.id.profile_woman_radio_button:
-////                profile.setGender(this, false);
-////                break;
-//        if(view.getId() == R.id.profile_man_radio_button){
-//            profile.setGender(ProfileActivity.this, true);
-//            profile.setGender(true);
-//
-//        } else if (view.getId() == R.id.profile_woman_radio_button) {
-//            profile.setGender(ProfileActivity.this, false);
-//            profile.setGender(false);
-//        }
-//        optimalCalorieNumber.setText(profile.calculateCalories() + " " + getString(R.string.kilocalories));
-//        optimalCalorieNumber.requestLayout();
-//    }
-
-
-//    public void onChangeButtonClick(View view) {
-//        int myheight = Integer.parseInt(profileHeightEditText.getText().toString());
-//        int myweight = Integer.parseInt(profileWeightEditText.getText().toString());
-//        int myage = Integer.parseInt(profileAgeEditText.getText().toString());
-//
-//        if(view.getId() == R.id.profile_man_radio_button){
-//            mygender = 1;
-//        } else if (view.getId() == R.id.profile_woman_radio_button) {
-//            mygender = 0;
-//        }
-//        optimalCalorieNumber.setText(profile.calculateMyCalories(mygender, myweight,myheight,myage) + " " + getString(R.string.kilocalories));
-//        optimalCalorieNumber.requestLayout();
-//    }
 
     public void onChangeButtonClick(View view) {
         int myheight = Integer.parseInt(profileHeightEditText.getText().toString());

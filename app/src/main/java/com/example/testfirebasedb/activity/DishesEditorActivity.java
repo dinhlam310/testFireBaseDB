@@ -40,9 +40,9 @@ public class DishesEditorActivity extends AppCompatActivity {
     private AutoCompleteTextView autocompletetxt;
     private ArrayAdapter<String> adapter;
     private FirebaseStorage storage;
-     private FirebaseDatabase database;
-     private DatabaseReference myRef;
-     private StorageReference storageReference;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private StorageReference storageReference;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,9 +123,8 @@ public class DishesEditorActivity extends AppCompatActivity {
                         dish.setTypeOfFood(((AutoCompleteTextView)findViewById(R.id.auto_complete_text)).getText().toString());
                         dish.setImgUrl(uri.toString());
                         //Doi tuong dish duoc day len firebasedatabase
-//                        String dishId = myRef.push().getKey();
-                        String pathObj = String.valueOf(dish.getName());
-                        myRef.child(pathObj).setValue(dish);
+                        String dishId = myRef.push().getKey();
+                        myRef.child(dishId).setValue(dish);
                         Toast.makeText(DishesEditorActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

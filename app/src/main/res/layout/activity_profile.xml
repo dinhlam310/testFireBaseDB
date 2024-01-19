@@ -6,22 +6,47 @@
     style="@style/background_style"
     android:id="@+id/profile_main_view">
     <RelativeLayout
+        android:background="@color/green"
         style="@style/header_style">
+
         <TextView
             style="@style/header_text"
+            android:textSize="25dp"
+
             android:text = "@string/profile">
         </TextView>
-        <Button
-            style="@style/header_button"
-            android:id="@+id/from_profile_to_menu"
-            android:text="@string/to_menu">
-        </Button>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+            <ImageButton
+                style="@style/header_button"
+                android:scaleType="centerInside"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:id="@+id/btn_log_out"
+                android:src="@drawable/ic_log_out">
+            </ImageButton>
+            <TextView
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Out">
+            </TextView>
+        </LinearLayout>
+        <!--        <Button-->
+        <!--            android:id="@+id/from_profile_to_menu"-->
+        <!--            style="@style/header_button"-->
+        <!--            android:text="@string/to_menu"></Button>-->
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="wrap_content">
             <TableLayout
                 android:layout_width="match_parent"
@@ -32,6 +57,7 @@
                     style="@style/table_row_profile_style">
                     <TextView
                         android:text="@string/sex"
+                        android:textColor="@color/black"
                         style="@style/first_text_in_row_profile_style"/>
                     <RadioGroup
                         android:orientation="horizontal"
@@ -41,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:text="@string/male"
                             android:checked="true"
-                            android:textColor="@color/my_text_color"
+                            android:textColor="@color/black"
                             android:id="@+id/profile_man_radio_button"
                             android:onClick="onChangeButtonClick"
                             />
@@ -51,7 +77,7 @@
                             android:text="@string/female"
                             android:layout_marginLeft="10dp"
                             android:layout_marginStart="10dp"
-                            android:textColor="@color/my_text_color"
+                            android:textColor="@color/black"
                             android:id="@+id/profile_woman_radio_button"
                             android:onClick="onChangeButtonClick"/>
                     </RadioGroup>
@@ -60,44 +86,49 @@
                     style="@style/table_row_profile_style">
                     <TextView
                         android:text="@string/growth"
+                        android:textColor="@color/black"
                         style="@style/first_text_in_row_profile_style"/>
                     <EditText
                         android:id="@+id/profile_height"
                         tools:text=""
                         android:inputType="number"
                         android:onClick="onChangeButtonClick"
-                        android:textColor="@color/my_text_color"/>
+                        android:textColor="@color/black"/>
                     <TextView
                         android:text="@string/centimeters"
-                        android:textColor="@color/my_text_color"/>
+                        android:textColor="@color/black"/>
                 </TableRow>
                 <TableRow
                     style="@style/table_row_profile_style">
                     <TextView
+                        android:textColor="@color/black"
                         android:text="@string/weight"
                         style="@style/first_text_in_row_profile_style"/>
                     <EditText
                         android:id="@+id/profile_weight"
                         tools:text=""
+                        android:textColor="@color/black"
                         android:onClick="onChangeButtonClick"
                         style="@style/edit_text_profile_style"/>
                     <TextView
                         android:text="@string/kilograms"
-                        android:textColor="@color/my_text_color"/>
+                        android:textColor="@color/black"/>
                 </TableRow>
                 <TableRow
                     style="@style/table_row_profile_style" >
                     <TextView
                         android:text="@string/age"
+                        android:textColor="@color/black"
                         style="@style/first_text_in_row_profile_style"/>
                     <EditText
                         android:id="@+id/profile_age"
                         tools:text=""
                         android:onClick="onChangeButtonClick"
+                        android:textColor="@color/black"
                         style="@style/edit_text_profile_style"/>
                     <TextView
                         android:text="@string/years"
-                        android:textColor="@color/my_text_color"/>
+                        android:textColor="@color/black"/>
                 </TableRow>
             </TableLayout>
             <TextView
@@ -105,6 +136,7 @@
                 android:id="@+id/profile_optimal_kal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_below="@id/profile_table_layout"
                 android:text="@string/daily_calorie_amount"
                 android:paddingTop="40dp"
@@ -120,12 +152,14 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
                 android:text="@string/kilocalories"
                 android:textStyle="bold" />
             <TextView
                 style="@style/first_text_in_row_profile_style"
                 android:id="@+id/profile_aim_kal"
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/profile_optimal_kal_number"
                 android:text="@string/calories_goal"/>
@@ -146,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:onClick="onChangeButtonClick"
+                    android:textColor="@color/black"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingEnd="0dp"
@@ -161,12 +196,14 @@
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
                     android:text="@string/kilocalories"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

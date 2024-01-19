@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,16 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testfirebasedb.BroadcastReceiver.Internet;
 import com.example.testfirebasedb.R;
-import com.example.testfirebasedb.adapter.DishAdapter;
 import com.example.testfirebasedb.adapter.DishInDayAdapter;
-import com.example.testfirebasedb.adapter.ExerciseAdapter;
 import com.example.testfirebasedb.adapter.ExerciseInDayAdapter;
 import com.example.testfirebasedb.entity.Day;
 import com.example.testfirebasedb.entity.Dish;
@@ -58,11 +58,18 @@ public class DayActivity extends AppCompatActivity {
     private DishInDayAdapter mDishAdapter;
     String selectedDate;
     private BottomNavigationView bottomNavigationView;
+    private Internet internetBroadcastReceiver;
+
+    SharedPreferences sharedPreferences;
+    String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day);
+        internetBroadcastReceiver = new Internet();
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        userEmail = sharedPreferences.getString("userEmail","");
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -100,9 +107,6 @@ public class DayActivity extends AppCompatActivity {
         mListDish = new ArrayList<>();
         mListExercise = new ArrayList<>();
         calendarButton = findViewById(R.id.calendarButton);
-        total = findViewById(R.id.textTotal);
-        caloIn = findViewById(R.id.textCaloIn);
-        caloOut = findViewById(R.id.textCaloOut);
         dish = findViewById(R.id.recyclerViewDish);
         exercise = findViewById(R.id.recyclerViewExercise);
         selectedDate = day + "-" + month + "-" + year;
@@ -115,7 +119,7 @@ public class DayActivity extends AppCompatActivity {
         });
 
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("Day");
+        ref = database.getReference().child("User").child(userEmail).child("Day");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -127,8 +131,7 @@ public class DayActivity extends AppCompatActivity {
 
             }
         });
-//        getListExerciseFromDB();
-//        getListDishFromDB();
+        loadDayData(selectedDate);
         ImageView btn_add_dish = (ImageView) findViewById(R.id.diary_dish_add_button);
         btn_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,49 +153,26 @@ public class DayActivity extends AppCompatActivity {
 
         initUiDish();
         initUiExercise();
-        loadDayData(selectedDate);
+        total = findViewById(R.id.textTotal);
+        caloIn = findViewById(R.id.textCaloIn);
+        caloOut = findViewById(R.id.textCaloOut);
     }
-    // Hàm lấy danh sách bài tập từ Firebase Realtime Database
-//    private void getListExerciseFromDB() {
-//        DatabaseReference exerciseRef = FirebaseDatabase.getInstance().getReference().child("Day").child("Exercise");
-//        exerciseRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mListExercise.clear(); // Xóa danh sách bài tập hiện tại để cập nhật lại từ Firebase
-//                for (DataSnapshot exerciseSnapshot : snapshot.getChildren()) {
-//                    Exercise exercise = exerciseSnapshot.getValue(Exercise.class);
-//                    mListExercise.add(exercise);
-//                }
-//                mExerciseAdapter.notifyDataSetChanged(); // Cập nhật giao diện RecyclerView
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu từ Firebase
-//            }
-//        });
-//    }
-//
-//    // Hàm lấy danh sách món ăn từ Firebase Realtime Database
-//    private void getListDishFromDB() {
-//        DatabaseReference dishRef = FirebaseDatabase.getInstance().getReference().child("Day").child("Dish");
-//        dishRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mListDish.clear(); // Xóa danh sách món ăn hiện tại để cập nhật lại từ Firebase
-//                for (DataSnapshot dishSnapshot : snapshot.getChildren()) {
-//                    Dish dish = dishSnapshot.getValue(Dish.class);
-//                    mListDish.add(dish);
-//                }
-//                mDishAdapter.notifyDataSetChanged(); // Cập nhật giao diện RecyclerView
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu từ Firebase
-//            }
-//        });
-//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetBroadcastReceiver, intentFilter);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(internetBroadcastReceiver);
+
+    }
+
     private void initUiExercise() {
         exercise = findViewById(R.id.recyclerViewExercise);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -245,34 +225,14 @@ public class DayActivity extends AppCompatActivity {
         dish.setAdapter(mDishAdapter);
     }
 
-//    private void onClickDeleteDishData(Dish dish) {
-//        new AlertDialog.Builder(this)
-//                .setTitle(getString(R.string.app_name))
-//                .setMessage("Ban co chac muon xoa ban ghi nay?")
-//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Dish");
-//                        myref.child(String.valueOf(dish.getName())).removeValue(new DatabaseReference.CompletionListener() {
-//                            @Override
-//                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-//                                Toast.makeText(DayActivity.this, "Delete data success", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                })
-//                .setNegativeButton("Cancel", null)
-//                .show();
-//    }
-
     private void onClickDeleteDishData(Dish dish) {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.app_name))
-                .setMessage("Bạn có chắc chắn muốn xóa bản ghi này?")
+                .setMessage("Delete this record ?")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Dish");
+                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate).child("Dish");
                         Query query = myref.orderByChild("name").equalTo(dish.getName());
 
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -305,44 +265,14 @@ public class DayActivity extends AppCompatActivity {
                 .show();
     }
 
-//    private void onClickDeleteExerciseData(Exercise exercise) {
-//        new AlertDialog.Builder(this)
-//                .setTitle(getString(R.string.app_name))
-//                .setMessage("Ban co chac muon xoa ban ghi nay?")
-//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise");
-//
-//                        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
-//                                    Dish dish = dishSnapshot.getValue(Dish.class);
-//                                    System.out.println(dish.getName());
-//                                    // Thực hiện xử lý với bản ghi Dish ở đây
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//                                // Xử lý khi có lỗi xảy ra
-//                            }
-//                        });
-//                    }
-//                })
-//                .setNegativeButton("Cancel", null)
-//                .show();
-//    }
-
     private void onClickDeleteExerciseData(Exercise exercise) {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.app_name))
-                .setMessage("Bạn có chắc chắn muốn xóa bản ghi này?")
+                .setMessage("Delete this record?")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate).child("Exercise");
+                        DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate).child("Exercise");
                         Query query = myref.orderByChild("name").equalTo(exercise.getName());
 
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -395,61 +325,8 @@ public class DayActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-//    private void loadDayData(String selectedDate) {
-//        DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);
-//        dayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    // Xóa dữ liệu và làm sạch giao diện
-//                    caloIn.setText("0");
-//                    caloOut.setText("0");
-//                    total.setText("0");
-//                    mListDish.clear();
-//                    mListExercise.clear();
-//                    mDishAdapter.notifyDataSetChanged();
-//                    mExerciseAdapter.notifyDataSetChanged();
-//                if (snapshot.exists()) {
-//                    Day day = snapshot.getValue(Day.class);
-//                    if (day != null) {
-//                        caloIn.setText(String.valueOf(day.getCaloIn()));
-//                        caloOut.setText(String.valueOf(day.getCaloOut()));
-//                        total.setText(String.valueOf(day.getCaloIn() - day.getCaloOut()));
-//
-//                        DataSnapshot dishSnapshot = snapshot.child("Dish");
-//                        mListDish.clear();
-//                        for (DataSnapshot dishDataSnapshot : dishSnapshot.getChildren()) {
-//                            Dish dish = dishDataSnapshot.getValue(Dish.class);
-//                            mListDish.add(dish);
-//                        }
-//                        mDishAdapter.notifyDataSetChanged();
-//
-//                        DataSnapshot exerciseSnapshot = snapshot.child("Exercise");
-//                        mListExercise.clear();
-//                        for (DataSnapshot exerciseDataSnapshot : exerciseSnapshot.getChildren()) {
-//                            Exercise exercise = exerciseDataSnapshot.getValue(Exercise.class);
-//                            mListExercise.add(exercise);
-//                        }
-//                        mExerciseAdapter.notifyDataSetChanged();
-//                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
-//                        intent.putExtra("THOI_GIAN", selectedDate);
-//                        startActivity(intent);
-//                    }
-//                } else {
-//                    Day emptyDay = new Day(selectedDate,null,null,0,0,0);
-//                    Toast.makeText(DayActivity.this, "Không có dữ liệu cho ngày được chọn.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu từ Firebase
-//            }
-//        });
-//
-//    }
-
     private void loadDayData(String selectedDate) {
-        DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);
+        DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate);
         dayRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -457,15 +334,14 @@ public class DayActivity extends AppCompatActivity {
                     Day day = snapshot.getValue(Day.class);
                     if (day != null) {
                         // Hiển thị dữ liệu từ snapshot
-                        caloIn.setText(String.valueOf(day.getCaloIn()));
-                        caloOut.setText(String.valueOf(day.getCaloOut()));
-                        total.setText(String.valueOf(day.getCaloIn() - day.getCaloOut()));
-
+                        float caloIn1 = 0;
+                        float caloOut2 = 0;
                         // Hiển thị danh sách Dish
                         DataSnapshot dishSnapshot = snapshot.child("Dish");
                         mListDish.clear();
                         for (DataSnapshot dishDataSnapshot : dishSnapshot.getChildren()) {
                             Dish dish = dishDataSnapshot.getValue(Dish.class);
+                            caloIn1+= dish.getCaloIn();
                             mListDish.add(dish);
                         }
                         mDishAdapter.notifyDataSetChanged();
@@ -475,14 +351,15 @@ public class DayActivity extends AppCompatActivity {
                         mListExercise.clear();
                         for (DataSnapshot exerciseDataSnapshot : exerciseSnapshot.getChildren()) {
                             Exercise exercise = exerciseDataSnapshot.getValue(Exercise.class);
+                            caloOut2+=exercise.getCaloBurn();
                             mListExercise.add(exercise);
                         }
                         mExerciseAdapter.notifyDataSetChanged();
-
-                        // Chuyển sang ExerciseActivity với dữ liệu selectedDate
-//                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
-//                        intent.putExtra("THOI_GIAN", selectedDate);
-//                        startActivity(intent);
+                        caloIn.setText(String.valueOf(caloIn1));
+                        caloOut.setText(String.valueOf(caloOut2));
+                        total.setText(String.valueOf(caloIn1-caloOut2));
+                        dayRef.child("caloIn").setValue(caloIn1);
+                        dayRef.child("caloOut").setValue(caloOut2);
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("THOI_GIAN", selectedDate);
@@ -493,7 +370,7 @@ public class DayActivity extends AppCompatActivity {
                     mListDish.clear();
                     mListExercise.clear();
                     Day emptyDay = new Day(selectedDate, (ArrayList<Dish>) mListDish, (ArrayList<Exercise>) mListExercise, 0, 0, 0);
-                    DatabaseReference newDayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);
+                    DatabaseReference newDayRef = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate);
                     newDayRef.setValue(emptyDay).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -507,9 +384,6 @@ public class DayActivity extends AppCompatActivity {
                                 mDishAdapter.notifyDataSetChanged();
                                 mExerciseAdapter.notifyDataSetChanged();
                                 Toast.makeText(DayActivity.this, "Đã tạo bản ghi mới cho ngày được chọn.", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
-//                                intent.putExtra("THOI_GIAN", selectedDate);
-//                                startActivity(intent);
                                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("THOI_GIAN", selectedDate);
