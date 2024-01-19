@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
     android:layout_margin="4dp"
@@ -19,6 +19,7 @@
 
             <ImageView
                 android:id="@+id/item_image_view"
+                android:layout_gravity="center"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
@@ -48,7 +49,16 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_margin="5dp"
-                        android:text="calories" />
+                        android:text="Weight" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/item_caloIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_margin="5dp"
+                        android:text="Calo In" />
                 </TableRow>
             </TableLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,6 +73,6 @@
             android:contentDescription="delete_exetr"
             android:src="@drawable/delete_exercise">
         </ImageButton>
-           </RelativeLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

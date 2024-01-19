@@ -51,7 +51,8 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
 //        holder.imageView.setImageResource(di.getImg());
         Glide.with(context).load(lst.get(position).getImgUrl()).into(holder.imageView);
         holder.textView.setText(di.getName());
-        holder.textCalories.setText(di.getCaloriesPer100Gm()+" calores/100g");
+        holder.textCalories.setText("Weight: "+di.getWeight()+"(G)");
+        holder.textCaloIn.setText("Calo In: "+di.getCaloIn()+"");
 //        holder.textGam.setText(di.parseCalories(di.getWeight())+" g");
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,7 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
         final private TextView textView;
         final private ImageButton imageButton;
         final private TextView textCalories;
+        final private TextView textCaloIn;
         //       final private TextView textGam;
         private FloatingActionButton button_add_to_diary;
         public MyViewHolder(@NonNull View itemView) {
@@ -81,6 +83,7 @@ public class DishInDayAdapter extends RecyclerView.Adapter<DishInDayAdapter.MyVi
             imageView = itemView.findViewById(R.id.item_image_view);
             textView = itemView.findViewById(R.id.item_text);
             textCalories = itemView.findViewById(R.id.item_calories);
+            textCaloIn = itemView.findViewById(R.id.item_caloIn);
 //            textGam = itemView.findViewById(R.id.item_g);
             imageButton = itemView.findViewById(R.id.btn_delete_exercise);
             imageButton.setOnClickListener(new View.OnClickListener(){
