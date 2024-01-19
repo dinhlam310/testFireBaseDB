@@ -79,7 +79,6 @@ public class StatisticActivity extends AppCompatActivity {
                 return false;
             }
         });
-        findViewById(R.id.from_statistic_to_menu).setOnClickListener(new ToWindowOnClickWithClosing(this,MyMenuActivity.class));
 //        LocalDate currentDate = LocalDate.now();
 //        int day = currentDate.getDayOfMonth();
 //        int month = currentDate.getMonthValue();
