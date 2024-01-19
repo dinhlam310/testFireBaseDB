@@ -99,13 +99,6 @@ public class ExerciseActivity extends AppCompatActivity {
             }
         });
         searchView_item.clearFocus();
-        ImageButton btnBack = findViewById(R.id.back_main_menu);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         Button btnAdd = findViewById(R.id.btn_add_exercise);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,9 +171,14 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int currentValue = Integer.parseInt(editText_minutes.getText().toString());
                 int newVal = currentValue + 1;
-                editText_minutes.setText(String.valueOf(newVal));
-                textView_duration.setText("Duration: " + editText_minutes.getText());
-                textView_caloBurn.setText("CaloBurn: " + exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim())));
+                if(newVal >= 0){
+                    editText_minutes.setText(String.valueOf(newVal));
+                    textView_duration.setText("Duration: " + editText_minutes.getText());
+                    textView_caloBurn.setText("CaloBurn: " + exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim())));
+                }
+                else{
+                    Toast.makeText(ExerciseActivity.this, "Value incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         button_minus_minutes.setOnClickListener(new View.OnClickListener() {
@@ -188,20 +186,30 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int currentValue = Integer.parseInt(editText_minutes.getText().toString());
                 int newVal = currentValue - 1;
-                editText_minutes.setText(String.valueOf(newVal));
-                textView_duration.setText("Duration: " + editText_minutes.getText());
-                textView_caloBurn.setText("CaloBurn: " + exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim())));
+                if(newVal >= 0){
+                    editText_minutes.setText(String.valueOf(newVal));
+                    textView_duration.setText("Duration: " + editText_minutes.getText());
+                    textView_caloBurn.setText("CaloBurn: " + exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim())));
+                }
+                else{
+                    Toast.makeText(ExerciseActivity.this, "Value incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         Button button_add_exercise_editor = dialog.findViewById(R.id.btn_add_exercise_editor);
         button_add_exercise_editor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = textView_name.getText().toString().trim();
-                int duration = Integer.parseInt(editText_minutes.getText().toString());
-                float caloBurn = exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim()));
-                Exercise exercise1 = new Exercise(name, duration, caloBurn);
-                addExerciseToDay(exercise1);
+                if(Integer.parseInt(editText_minutes.getText().toString()) > 0) {
+                    String name = textView_name.getText().toString().trim();
+                    int duration = Integer.parseInt(editText_minutes.getText().toString());
+                    float caloBurn = exercise.CarloriesFormula(Float.parseFloat(editText_minutes.getText().toString().trim()));
+                    Exercise exercise1 = new Exercise(name, duration, caloBurn);
+                    addExerciseToDay(exercise1);
+                }else{
+                    editText_minutes.setText("");
+                    Toast.makeText(ExerciseActivity.this, "Value incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         button_exit.setOnClickListener(new View.OnClickListener() {
