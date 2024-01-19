@@ -5,16 +5,20 @@
     style="@style/background_style"
     tools:context="com.example.testfirebasedb.activity.StatisticActivity">
     <RelativeLayout
+        android:background="@color/green"
         style="@style/header_style">
+
         <TextView
             style="@style/header_text"
+            android:textSize="25dp"
+
             android:text = "@string/statistic">
         </TextView>
-        <Button
-            style="@style/header_button"
-            android:id="@+id/from_statistic_to_menu"
-            android:text="@string/to_menu">
-        </Button>
+<!--        <Button-->
+<!--            style="@style/header_button"-->
+<!--            android:id="@+id/from_statistic_to_menu"-->
+<!--            android:text="@string/to_menu">-->
+<!--        </Button>-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,6 +27,7 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_marginBottom="80dp"
+            android:background="@color/white"
             android:layout_height="match_parent" />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
