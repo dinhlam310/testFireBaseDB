@@ -257,7 +257,8 @@ public class DishActivity extends AppCompatActivity {
                     textView_gam.setText(String.valueOf(newVal));
                     dish.setWeight(Integer.parseInt(String.valueOf(newVal)));
                     editText_weight.setText(dish.getWeight()+"");
-                    textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
+                    dish.parseCalories(Integer.parseInt(editText_weight.getText().toString()));
+                    textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString())+"(G)");
                     textView_calories.setText("Calories: " + dish.getCaloIn());
                     textView_protein.setText("Protein: "+dish.parseProtein(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fat.setText("Fat: "+dish.parseFat(Integer.parseInt(editText_weight.getText().toString())));
@@ -276,7 +277,8 @@ public class DishActivity extends AppCompatActivity {
                     textView_gam.setText(String.valueOf(newVal));
                     dish.setWeight(Integer.parseInt(String.valueOf(newVal)));
                     editText_weight.setText(dish.getWeight()+"");
-                    textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
+                    dish.parseCalories(Integer.parseInt(editText_weight.getText().toString()));
+                    textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString())+"(G)");
                     textView_calories.setText("Calories: " + dish.getCaloIn());
                     textView_protein.setText("Protein: "+dish.parseProtein(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fat.setText("Fat: "+dish.parseFat(Integer.parseInt(editText_weight.getText().toString())));
@@ -316,7 +318,10 @@ public class DishActivity extends AppCompatActivity {
                     try {
                         dish.setWeight(Integer.parseInt(editText_weight.getText().toString()));
                         textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
-                        textView_calories.setText("Calories: " + dish.parseCalories(Integer.parseInt(editText_weight.getText().toString())));
+                        textView_calories.setText("Calories: " + dish.getCaloIn());
+                        textView_protein.setText("Protein: "+dish.parseProtein(Integer.parseInt(editText_weight.getText().toString())));
+                        textView_fat.setText("Fat: "+dish.parseFat(Integer.parseInt(editText_weight.getText().toString())));
+                        textView_fiber.setText("Fiber: "+dish.parseFiber(Integer.parseInt(editText_weight.getText().toString())));
                     } catch (NumberFormatException e) {
                         Toast.makeText(DishActivity.this, "Khong dung dinh dang weight!", Toast.LENGTH_SHORT).show();
                     }

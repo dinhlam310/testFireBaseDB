@@ -95,7 +95,7 @@ public class Dish implements Serializable {
         this.imgUrl = imgUrl;
     }
     public int parseCalories(int weight) {
-        return Math.abs(proteinPer100Gm*4+fatPer100Gm*9-fiberPer100Gm*4) * weight / 100;
+        return Math.abs(proteinPer100Gm+fatPer100Gm-fiberPer100Gm) * weight / 100;
     }
     public int parseProtein(int weight){
         return proteinPer100Gm*weight/100;

@@ -108,7 +108,7 @@ public class DishesEditorActivity extends AppCompatActivity {
     }
 
     private void upLoadToFireBase() {
-        final String randomkey = UUID.randomUUID().toString();
+//        final String randomkey = UUID.randomUUID().toString();
 //        StorageReference riversRef = storageReference.child("images/"+randomkey);
         StorageReference imgReference = storageReference.child("images/"+System.currentTimeMillis() + "." + getFileExtension(imageUri));
         imgReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -118,8 +118,8 @@ public class DishesEditorActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         dish = new Dish();
-                        storage = FirebaseStorage.getInstance();
-                        StorageReference storageReference = storage.getReference();
+//                        storage = FirebaseStorage.getInstance();
+//                        StorageReference storageReference = storage.getReference();
                         dish = new Dish();
                         dish.setName(((EditText) findViewById(R.id.dish_editor_dish_name)).getText().toString());
                         dish.setCalories(Integer.parseInt(((EditText) findViewById(R.id.dish_editor_calories)).getText().toString()));
