@@ -457,7 +457,6 @@ public class DayActivity extends AppCompatActivity {
                     Day day = snapshot.getValue(Day.class);
                     if (day != null) {
                         // Hiển thị dữ liệu từ snapshot
-
                         float caloIn1 = 0;
                         float caloOut2 = 0;
                         // Hiển thị danh sách Dish
