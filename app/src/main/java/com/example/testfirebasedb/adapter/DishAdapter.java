@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testfirebasedb.R;
 import com.example.testfirebasedb.entity.Dish;
+import com.example.testfirebasedb.entity.Exercise;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -23,6 +24,10 @@ import java.util.List;
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> {
     private List<Dish> lst = new ArrayList<>();
     private IClickListener mClickListener;
+    public void setFilterList(List<Dish> filterList){
+        this.lst = filterList;
+        notifyDataSetChanged();
+    }
     public interface  IClickListener {
         void onClickDeleteItem(Dish dish);
         void onClickDetails (Dish dish);
