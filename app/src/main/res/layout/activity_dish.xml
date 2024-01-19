@@ -35,25 +35,22 @@
                 app:iconifiedByDefault="false"
                 android:textAlignment="center" />
         </androidx.cardview.widget.CardView>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginLeft="350dp"
-            android:background="@color/green"
-            android:id="@+id/db_dish_menu">
-
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/db_dish_add"
-                android:paddingTop="8dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:background="@null"
+                android:layout_marginTop="8dp"
+                android:background="@color/green"
                 android:contentDescription="@string/create"
                 android:onClick="onCreateDish"
                 android:scaleType="centerInside"
                 android:src="@drawable/add_item" />
+        </LinearLayout>
 <!--            <ImageButton-->
 <!--                android:id="@+id/db_dish_delete"-->
 <!--                android:layout_width="57dp"-->
@@ -79,7 +76,6 @@
 <!--                android:onClick="onEditDish"-->
 <!--                android:src="@drawable/edit"-->
 <!--                android:contentDescription="@string/edit" />-->
-        </RelativeLayout>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layoutAnimation="@anim/layout_animation"

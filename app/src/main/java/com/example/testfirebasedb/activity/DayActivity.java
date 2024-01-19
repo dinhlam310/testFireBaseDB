@@ -457,15 +457,15 @@ public class DayActivity extends AppCompatActivity {
                     Day day = snapshot.getValue(Day.class);
                     if (day != null) {
                         // Hiển thị dữ liệu từ snapshot
-                        caloIn.setText(String.valueOf(day.getCaloIn()));
-                        caloOut.setText(String.valueOf(day.getCaloOut()));
-                        total.setText(String.valueOf(day.getCaloIn() - day.getCaloOut()));
 
+                        float caloIn1 = 0;
+                        float caloOut2 = 0;
                         // Hiển thị danh sách Dish
                         DataSnapshot dishSnapshot = snapshot.child("Dish");
                         mListDish.clear();
                         for (DataSnapshot dishDataSnapshot : dishSnapshot.getChildren()) {
                             Dish dish = dishDataSnapshot.getValue(Dish.class);
+                            caloIn1+= dish.getCaloIn();
                             mListDish.add(dish);
                         }
                         mDishAdapter.notifyDataSetChanged();
@@ -475,10 +475,15 @@ public class DayActivity extends AppCompatActivity {
                         mListExercise.clear();
                         for (DataSnapshot exerciseDataSnapshot : exerciseSnapshot.getChildren()) {
                             Exercise exercise = exerciseDataSnapshot.getValue(Exercise.class);
+                            caloOut2+=exercise.getCaloBurn();
                             mListExercise.add(exercise);
                         }
                         mExerciseAdapter.notifyDataSetChanged();
-
+                        caloIn.setText(String.valueOf(caloIn1));
+                        caloOut.setText(String.valueOf(caloOut2));
+                        total.setText(String.valueOf(caloIn1-caloOut2));
+                        dayRef.child("caloIn").setValue(caloIn1);
+                        dayRef.child("caloOut").setValue(caloOut2);
                         // Chuyển sang ExerciseActivity với dữ liệu selectedDate
 //                        Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
 //                        intent.putExtra("THOI_GIAN", selectedDate);

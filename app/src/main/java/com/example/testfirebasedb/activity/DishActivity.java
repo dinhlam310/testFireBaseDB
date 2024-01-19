@@ -51,7 +51,6 @@ public class DishActivity extends AppCompatActivity {
     Map<String, Object> map;
     ArrayList<Map<String, Object>> data; // main data
     SimpleAdapter sAdapter;
-    long selectedElementId=-1;
     ListView listView;
     List<Dish> dishesList = new ArrayList<>();
     Dish tempDish;
@@ -259,7 +258,7 @@ public class DishActivity extends AppCompatActivity {
                     dish.setWeight(Integer.parseInt(String.valueOf(newVal)));
                     editText_weight.setText(dish.getWeight()+"");
                     textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
-                    textView_calories.setText("Calories: " + dish.parseCalories(Integer.parseInt(editText_weight.getText().toString())));
+                    textView_calories.setText("Calories: " + dish.getCaloIn());
                     textView_protein.setText("Protein: "+dish.parseProtein(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fat.setText("Fat: "+dish.parseFat(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fiber.setText("Fiber: "+dish.parseFiber(Integer.parseInt(editText_weight.getText().toString())));
@@ -278,7 +277,7 @@ public class DishActivity extends AppCompatActivity {
                     dish.setWeight(Integer.parseInt(String.valueOf(newVal)));
                     editText_weight.setText(dish.getWeight()+"");
                     textView_gam.setText("Weight: " + Integer.parseInt(editText_weight.getText().toString()));
-                    textView_calories.setText("Calories: " + dish.parseCalories(Integer.parseInt(editText_weight.getText().toString())));
+                    textView_calories.setText("Calories: " + dish.getCaloIn());
                     textView_protein.setText("Protein: "+dish.parseProtein(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fat.setText("Fat: "+dish.parseFat(Integer.parseInt(editText_weight.getText().toString())));
                     textView_fiber.setText("Fiber: "+dish.parseFiber(Integer.parseInt(editText_weight.getText().toString())));
@@ -364,6 +363,5 @@ public class DishActivity extends AppCompatActivity {
 //        tempDish = (Dish)getIntent().getSerializableExtra("DISH");
 //        dishesList.add(tempDish);
 //        recyclerView.setAdapter(myDishesViewAdapter);
-        selectedElementId=-1;
     }
 }

@@ -12,6 +12,7 @@ public class Dish implements Serializable {
     private String typeOfFood;
     private int weight;
     private String imgUrl;
+    private int caloIn;
 
     public int getWeight() {
         return weight;
@@ -31,6 +32,10 @@ public class Dish implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public int getCaloIn() {
+        return caloriesPer100Gm*weight/100;
     }
 
     public static enum enumFood{ //Starchy la tinh bot vd(rice,noodles) | nut là các loại hạt vd như ngũ cốc , đậu nành ,...

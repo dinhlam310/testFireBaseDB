@@ -5,7 +5,9 @@ import static com.example.testfirebasedb.entity.Dish.names;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListPopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +56,9 @@ public class DishesEditorActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("/Dish");
         autocompletetxt = findViewById(R.id.auto_complete_text);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            autocompletetxt.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);
+        }
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,items);
         autocompletetxt.setAdapter(adapter);
         autocompletetxt.setOnItemClickListener(new AdapterView.OnItemClickListener(){
