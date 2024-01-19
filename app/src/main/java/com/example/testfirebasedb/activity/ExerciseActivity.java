@@ -337,7 +337,7 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    int currentCaloOut = snapshot.getValue(Integer.class);
+                    float currentCaloOut = snapshot.getValue(Float.class);
                     float newCaloOut = currentCaloOut + exercise.getCaloBurn();
                     dayRef.child("caloOut").setValue(newCaloOut);
                 }
