@@ -37,12 +37,13 @@
 
     <Button
         android:id="@+id/calendarButton"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_width="505dp"
+        android:layout_height="54dp"
+        android:backgroundTint="@color/green"
+        android:insetTop="0dp"
         android:text="Select Date"
-        android:background="#90EE90"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
