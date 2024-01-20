@@ -132,23 +132,23 @@ public class DayActivity extends AppCompatActivity {
             }
         });
         loadDayData(selectedDate);
-        ImageView btn_add_dish = (ImageView) findViewById(R.id.diary_dish_add_button);
-        btn_add_dish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DayActivity.this, DishActivity.class);
-                startActivity(i);
-            }
-        });
+//        ImageView btn_add_dish = (ImageView) findViewById(R.id.diary_dish_add_button);
+//        btn_add_dish.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(DayActivity.this, DishActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
-        ImageView btn_add_exercise = (ImageView) findViewById(R.id.diary_exercise_add_button);
-        btn_add_exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DayActivity.this, ExerciseActivity.class);
-                startActivity(i);
-            }
-        });
+//        ImageView btn_add_exercise = (ImageView) findViewById(R.id.diary_exercise_add_button);
+//        btn_add_exercise.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(DayActivity.this, ExerciseActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
 
         initUiDish();
