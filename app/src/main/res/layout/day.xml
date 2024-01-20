@@ -37,12 +37,12 @@
 
     <Button
         android:id="@+id/calendarButton"
-        android:layout_width="248dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
         android:text="Select Date"
+        android:background="#90EE90"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,8 +61,8 @@
         android:id="@+id/textCaloIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="104dp"
         android:text="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,62 +71,56 @@
         android:id="@+id/textCaloOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="84dp"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/diary_dish_add_button"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginEnd="128dp"-->
+    <!--        android:background="@null"-->
+    <!--        android:contentDescription="@string/add_dish"-->
+    <!--        android:scaleType="centerInside"-->
+    <!--        android:src="@drawable/add_dish"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/diary_exercise_add_button"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginEnd="128dp"-->
+    <!--        android:background="@null"-->
+    <!--        android:contentDescription="@string/add_exercise"-->
+    <!--        android:scaleType="centerInside"-->
+    <!--        android:src="@drawable/add_exercise"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/recyclerViewExercise"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDish"
         android:layout_width="match_parent"
-        android:layout_height="152dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewExercise"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Total"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExercise"
         android:layout_width="match_parent"
-        android:layout_height="152dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/diary_dish_add_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="128dp"
-        android:background="@null"
-        android:contentDescription="@string/add_dish"
-        android:scaleType="centerInside"
-        android:src="@drawable/add_dish"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <ImageButton
-        android:id="@+id/diary_exercise_add_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="128dp"
-        android:background="@null"
-        android:contentDescription="@string/add_exercise"
-        android:scaleType="centerInside"
-        android:src="@drawable/add_exercise"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewExercise"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewDish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Dish"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
-        app:layout_constraintEnd_toStartOf="@+id/diary_dish_add_button"
-        app:layout_constraintHorizontal_bias="0.899"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -138,31 +132,37 @@
         android:text="Exercise"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewExercise"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewDish" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewDish"
+        app:layout_constraintVertical_bias="0.958" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:itemIconTint="@color/custom_color_bottom_navigation"
+        app:itemTextColor="@color/custom_color_bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            app:itemIconTint="@color/custom_color_bottom_navigation"
-            app:itemTextColor="@color/custom_color_bottom_navigation"
-            app:menu="@menu/menu_bottom_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+    <!--        <ScrollView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:layout_above="@+id/bottom_navigation"></ScrollView>-->
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_above="@+id/bottom_navigation">
+    <TextView
+        android:id="@+id/textViewDish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="192dp"
+        android:text="Dish"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Total"
+        app:layout_constraintVertical_bias="0.818" />
 
-        </ScrollView>
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
