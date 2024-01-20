@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
@@ -35,60 +35,59 @@
                 app:iconifiedByDefault="false"
                 android:textAlignment="center" />
         </androidx.cardview.widget.CardView>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginLeft="350dp"
-            android:background="@color/green"
-            android:id="@+id/db_dish_menu">
-
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/db_dish_add"
-                android:paddingTop="8dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:background="@null"
+                android:layout_marginTop="8dp"
+                android:background="@color/green"
                 android:contentDescription="@string/create"
                 android:onClick="onCreateDish"
                 android:scaleType="centerInside"
                 android:src="@drawable/add_item" />
-            <!--            <ImageButton-->
-            <!--                android:id="@+id/db_dish_delete"-->
-            <!--                android:layout_width="57dp"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:layout_alignParentEnd="true"-->
-            <!--                android:layout_centerVertical="true"-->
-            <!--                android:layout_marginEnd="8dp"-->
-            <!--                android:background="@null"-->
-            <!--                android:contentDescription="@string/delete"-->
-            <!--                android:onClick="onDeleteDish"-->
-            <!--                android:scaleType="centerInside"-->
-            <!--                android:src="@drawable/delete_item" />-->
+        </LinearLayout>
+<!--            <ImageButton-->
+<!--                android:id="@+id/db_dish_delete"-->
+<!--                android:layout_width="57dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:background="@null"-->
+<!--                android:contentDescription="@string/delete"-->
+<!--                android:onClick="onDeleteDish"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:src="@drawable/delete_item" />-->
 
-            <!--            <ImageButton-->
-            <!--                android:layout_width="50dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:background="@null"-->
-            <!--                android:scaleType="centerInside"-->
-            <!--                android:layout_centerVertical="true"-->
-            <!--                android:layout_toStartOf="@id/db_dish_delete"-->
-            <!--                android:layout_marginEnd="16dp"-->
-            <!--                android:id="@+id/db_dish_edit"-->
-            <!--                android:onClick="onEditDish"-->
-            <!--                android:src="@drawable/edit"-->
-            <!--                android:contentDescription="@string/edit" />-->
-        </RelativeLayout>
+<!--            <ImageButton-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@null"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_toStartOf="@id/db_dish_delete"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:id="@+id/db_dish_edit"-->
+<!--                android:onClick="onEditDish"-->
+<!--                android:src="@drawable/edit"-->
+<!--                android:contentDescription="@string/edit" />-->
     </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layoutAnimation="@anim/layout_animation"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycle_dishes_view"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="80dp"
         android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layoutAnimation="@anim/layout_animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycle_dishes_view"/>
+    </LinearLayout>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -99,5 +98,4 @@
             android:layout_alignParentBottom="true"
             app:menu="@menu/menu_bottom_navigation">
         </com.google.android.material.bottomnavigation.BottomNavigationView>
-    </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>
