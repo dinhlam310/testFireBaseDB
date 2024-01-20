@@ -170,7 +170,7 @@ public class DishActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences1 = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String userEmail = sharedPreferences1.getString("userEmail","");
         DatabaseReference dishRef = FirebaseDatabase.getInstance().getReference().child("User").child(userEmail).child("Day").child(selectedDate).child("Dish").push();
-
+        dish.setWeight(100);
         dishRef.setValue(dish);
         Toast.makeText(DishActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT).show();
         DatabaseReference dayRef = FirebaseDatabase.getInstance().getReference().child("Day").child(selectedDate);
