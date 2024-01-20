@@ -14,11 +14,11 @@
 
             android:text = "@string/statistic">
         </TextView>
-<!--        <Button-->
-<!--            style="@style/header_button"-->
-<!--            android:id="@+id/from_statistic_to_menu"-->
-<!--            android:text="@string/to_menu">-->
-<!--        </Button>-->
+        <!--        <Button-->
+        <!--            style="@style/header_button"-->
+        <!--            android:id="@+id/from_statistic_to_menu"-->
+        <!--            android:text="@string/to_menu">-->
+        <!--        </Button>-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

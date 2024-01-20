@@ -30,10 +30,6 @@ public class Day {
     public Day() {
     }
 
-//    public Day(Context context) {
-//        SharedPreferences sPref = context.getSharedPreferences("day_preferences", Context.MODE_PRIVATE);
-//    }
-
     public static  Day getDay(Context context){
         if(day == null){
             day = new Day();

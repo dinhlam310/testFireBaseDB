@@ -19,6 +19,5 @@
     <item android:id="@+id/bottom_statistics"
         android:title="Statistic"
         android:icon="@drawable/ic_statistic">
-
     </item>
 </menu>
