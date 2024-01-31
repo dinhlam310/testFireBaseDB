@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -18,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +51,7 @@ public class DishesEditorActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private StorageReference storageReference;
+        private ActivityResultLauncher<Intent> activityResultLauncher;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +73,7 @@ public class DishesEditorActivity extends AppCompatActivity {
                 String item = parent.getItemAtPosition(position).toString();
             }
         });
-
+        registerResult();
         dishPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,11 +96,28 @@ public class DishesEditorActivity extends AppCompatActivity {
         });
 
     }
+
+    private void registerResult() {
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        try{
+                            imageUri = result.getData().getData();
+                            dishPic.setImageURI(imageUri);
+                        }catch (Exception e){
+                            Toast.makeText(DishesEditorActivity.this, "No image selected", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+
     private void choosePicture() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        activityResultLauncher.launch(intent);
+//        startActivityForResult(intent,1);
+//        registerForActivityResult(ActivityRes)
     }
 
 
